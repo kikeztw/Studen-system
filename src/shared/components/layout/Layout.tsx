@@ -15,6 +15,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
+const Content = styled('div')(({ theme }) => ({
+  paddingLeft: theme.spacing(16),
+  paddingRight: theme.spacing(16),
+  paddingTop: theme.spacing(12),
+  paddingBottom: theme.spacing(12),
+}))
+
 export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -33,7 +40,9 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
       <SideBar isOpen={open} onPressClose={handleDrawerClose} />
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        {children}
+        <Content>
+          {children}
+        </Content>
       </Box>
     </Box>
   );
