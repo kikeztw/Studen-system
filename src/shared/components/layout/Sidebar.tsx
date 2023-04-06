@@ -69,7 +69,7 @@ const MENU_LIST = [
   {
     icon: <LibraryBooksIcon color="primary" />,
     label: 'Materias',
-    route: '/course'
+    route: '/courses'
   }
 ]
 
