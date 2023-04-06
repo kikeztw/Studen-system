@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { useRouter } from 'next/router'
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -11,8 +11,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import PeopleIcon from '@mui/icons-material/People';
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 
 const drawerWidth = 240;
 
@@ -46,27 +50,28 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-}
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+const MENU_LIST = [
+  {
+    icon: <NoteAltIcon color="primary" />,
+    label: 'Profesores',
+    route: '/teachers'
+  },
+  {
+    icon: <PeopleIcon color="primary"/>,
+    label: 'Estudiantes',
+    route: '/students'
+  },
+  {
+    icon: <NoteAltIcon color="primary" />,
+    label: 'Notas',
+    route: '/grades'
+  },
+  {
+    icon: <LibraryBooksIcon color="primary" />,
+    label: 'Materias',
+    route: '/course'
+  }
+]
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -95,6 +100,11 @@ export const SideBar: React.FC<SideBarProps> = ({
   onPressClose,
 }) => {
   const theme = useTheme();
+  const router = useRouter();
+
+  const onClick = (route: string) => () => {
+    router.push(route);
+  }
 
   return (
       <Drawer variant="permanent" open={isOpen}>
@@ -104,30 +114,39 @@ export const SideBar: React.FC<SideBarProps> = ({
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          {['Profesores', 'Estudiantes', 'Notas'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: isOpen ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+        <Stack height="100%" justifyContent="space-between">
+          <List>
+            {MENU_LIST.map((item, index) => (
+              <ListItem onClick={onClick(item.route)} key={item.label} disablePadding sx={{ display: 'block' }}>
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: isOpen ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: isOpen ? 'initial' : 'center',
+                    px: 2.5,
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: isOpen ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: isOpen ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={item.label} sx={{ opacity: isOpen ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          {isOpen ? (
+            <Button size="large" startIcon={<LogoutIcon />}>Logout</Button>
+          ): (
+            <IconButton color="primary" aria-label="upload picture" component="label">
+              <LogoutIcon />
+            </IconButton>
+          )}
+        </Stack>
       </Drawer>
   );
 }

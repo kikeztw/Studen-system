@@ -2,9 +2,10 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import Avatar from '@mui/material/Avatar';
 
 const drawerWidth = 240;
 
@@ -47,18 +48,21 @@ export const Header: React.FC<HeaderPropss> = ({
   return (
     <AppBar elevation={0} position="fixed" open={isOpen}>
       <Toolbar>
-        <IconButton
-          color="default"
-          aria-label="open drawer"
-          onClick={onClickOpen}
-          edge="start"
-          sx={{
-            marginRight: 5,
-            ...(isOpen && { display: 'none' }),
-          }}
-        >
-          <MenuIcon />
-        </IconButton>
+        <Stack direction="row" width="100%" justifyContent={isOpen ? 'flex-end' : "space-between" }>
+          <IconButton
+            color="default"
+            aria-label="open drawer"
+            onClick={onClickOpen}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              ...(isOpen && { display: 'none' }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Avatar src="https://joesch.moe/api/v1/random?key=2" alt="vatar_header"/>
+        </Stack>
       </Toolbar>
     </AppBar>
   );
