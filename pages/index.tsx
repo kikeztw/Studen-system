@@ -22,7 +22,7 @@ export const Home: NextPageWithLayout = () => {
         }}
       >
         <Typography variant="h4" component="h1" gutterBottom>
-          Material UI - Next.js example in TypeScript
+          Bienvenido, Carlos
         </Typography>
         <Link href="/about" color="secondary">
           Go to the about page
