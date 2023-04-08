@@ -76,7 +76,7 @@ export const Dialog: React.FC<React.PropsWithChildren<DialogPropss>> = ({
       <Button onClick={onClose}>
         Cancelar
       </Button>
-      <Button autoFocus onClick={onClickConfirm}>
+      <Button variant="contained" autoFocus onClick={onClickConfirm}>
         Confirmar
       </Button>
     </DialogActions>
