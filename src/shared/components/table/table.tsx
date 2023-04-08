@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -46,7 +46,6 @@ export const Table: React.FC<Table> = ({
               },
             },
           }}
-          disableColumnSelector
           pageSizeOptions={[5]}
           disableRowSelectionOnClick
           rowSelection={false}

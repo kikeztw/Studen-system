@@ -1,37 +1,44 @@
+import { useState } from 'react';
 import { NextPageWithLayout } from '../src/shared/types/page';
-import Container from '@mui/material/Container';
-import { GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { GridColDef } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
+import { styled } from '@mui/material';
+import TextField from '@mui/material/TextField';
 
 import { getLayout } from '../src/shared/utils/get-layout';
 import { Table } from '../src/shared/components/table/table';
+import { Dialog } from '../src/shared/components/dialog';
 
 const columns: GridColDef[] = [
-  { field: 'firstName', headerName: 'Nombre', flex: 1 },
-  { field: 'lastname', headerName: 'Apellido', flex: 1 },
+  { field: 'firstName', headerName: 'Nombre',  editable: false, width: 150 },
+  { field: 'lastname', headerName: 'Apellido',  editable: false, width: 150 },
   {
     field: 'ci',
     headerName: 'Cedula',
-    flex: 1,
+    // flex: 1,
     editable: false,
+    width: 150
   },
   {
     field: 'phone',
     headerName: 'Telefono',
-    flex: 1,
+    // flex: 1,
     editable: false,
+    width: 150
   },
   {
     field: 'email',
     headerName: 'Correo',
-    flex: 1,
+    // flex: 1,
     editable: false,
+    width: 150
   },
   {
     field: 'status',
     headerName: 'Estado',
-    sortable: false,
-    flex: 1,
+    editable: false,
+    width: 150
+    // flex: 1,
     // valueGetter: (params: GridValueGetterParams) =>
     //   `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
@@ -57,17 +64,45 @@ const data = [
 
 ];
 
-export const Home: NextPageWithLayout = () => {
+const FormContainer = styled('div')({
+  padding: 8,
+});
+
+export const TeacherView: NextPageWithLayout = () => {
+  const [isOpen, setOpen] = useState(false);
+
+  const handleOpenDialog = (): void => {
+    setOpen((state) => !state);
+  }
+
   return (
-    <Table 
-      title="Profesores" 
-      columns={columns} 
-      data={data} 
-      button={<Button variant="contained">Registrar Profesor</Button>} 
-    />
+    <>
+      <Table 
+        title="Profesores" 
+        columns={columns} 
+        data={data} 
+        button={
+          <Button 
+            onClick={handleOpenDialog}
+            variant="contained">
+              Registrar Profesor
+          </Button>
+        } 
+      />
+     <Dialog 
+      open={isOpen} 
+      onClose={handleOpenDialog} 
+      title="Agregar profesor">
+        <FormContainer>
+          <TextField label="Outlined" variant="outlined" margin="none" />
+          <TextField label="Outlined" variant="outlined" margin="none" />
+          <TextField label="Outlined" variant="outlined" margin="none" />
+        </FormContainer>
+    </Dialog>
+    </>
   );
 }
 
-Home.getLayout = getLayout
+TeacherView.getLayout = getLayout
 
-export default Home;
+export default TeacherView;
