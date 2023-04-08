@@ -1,39 +1,45 @@
 import * as React from 'react';
+import { useRouter } from 'next/router'
 import { NextPageWithLayout } from '../src/shared/types/page';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Link from '../src/Link';
-import ProTip from '../src/ProTip';
-import Copyright from '../src/Copyright';
+import Grid from '@mui/material/Grid';
+import { styled } from '@mui/material';
+import Image from 'next/image';
+import ContainerMui from '@mui/material/Container';
+import Button from '@mui/material/Button';
 
-import { getLayout } from '../src/shared/utils/get-layout';
+const Container = styled('div')({
+  width: '100%',
+  height: '100vh',
+  display: 'flex',
+  alignItems: 'center'
+});
 
 export const Home: NextPageWithLayout = () => {
+  const router = useRouter();
+  const onClickRedirectToLogin = (): void => {
+    router.push('/login');
+  }
   return (
-    <Container maxWidth="lg">
-      <Box
-        sx={{
-          my: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Typography variant="h4" component="h1" gutterBottom>
-          Bienvenido, Carlos
-        </Typography>
-        <Link href="/about" color="secondary">
-          Go to the about page
-        </Link>
-        <ProTip />
-        <Copyright />
-      </Box>
+    <Container>
+      <ContainerMui maxWidth="lg">
+        <Grid container spacing={10}>
+          <Grid xs={6} item>
+            <Box display="flex" flexDirection="column" alignItems="center">
+              <Image style={{ marginRight: 8 }} src="/MIT_logo_bg.png" alt="sidebar_logo" width={350} height={350} />
+              <Typography variant="h5">Student System</Typography>
+            </Box>
+          </Grid>
+          <Grid xs={6} item>
+            <Typography sx={{ marginBottom: 5 }} variant="h3" textAlign="center">Acceso al Sistema</Typography>
+            <Button onClick={onClickRedirectToLogin} sx={{ marginBottom: 3 }} size="large" fullWidth variant="contained" color="primary">Administrador</Button>
+            <Button size="large" fullWidth variant="contained" color="primary">Estudiante</Button>
+          </Grid>
+        </Grid>
+      </ContainerMui>
     </Container>
   );
 }
-
-Home.getLayout = getLayout
 
 export default Home;
