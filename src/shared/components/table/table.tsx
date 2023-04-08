@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-import { styled } from '@mui/material';
-import Paper from '@mui/material/Paper';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -21,7 +19,7 @@ export const Table: React.FC<Table> = ({
   button
 }) => {
   return (
-    <Paper elevation={4}>
+    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
        <AppBar elevation={0} color="transparent" position="relative">
         <Toolbar>
           <Typography
@@ -36,24 +34,25 @@ export const Table: React.FC<Table> = ({
           </Box>
         </Toolbar>
       </AppBar>
-      <DataGrid
-        style={{ borderRadius: 0, borderWidth: 0 }}
-        rows={data}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
+      <Box sx={{ flexGrow: 1 }}>
+        <DataGrid
+          style={{ borderRadius: 0, borderWidth: 0 }}
+          rows={data}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 10,
+              },
             },
-          },
-        }}
-        disableColumnSelector
-        pageSizeOptions={[5]}
-        disableRowSelectionOnClick
-        rowSelection={false}
-        autoHeight
-      />
-    </Paper>
+          }}
+          disableColumnSelector
+          pageSizeOptions={[5]}
+          disableRowSelectionOnClick
+          rowSelection={false}
+        />
+      </Box>
+    </Box>
       
   );
 }

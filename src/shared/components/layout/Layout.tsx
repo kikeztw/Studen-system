@@ -2,6 +2,7 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
+import PaperMUI from '@mui/material/Paper';
 
 import { SideBar } from './Sidebar';
 import { Header } from './Header';
@@ -15,12 +16,25 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-const Content = styled('div')(({ theme }) => ({
-  paddingLeft: theme.spacing(16),
-  paddingRight: theme.spacing(16),
-  paddingTop: theme.spacing(12),
-  paddingBottom: theme.spacing(12),
+const Main = styled('main')(({ theme }) => ({
+  flexGrow: 1,
+  backgroundColor: theme.palette.grey['100'],
+  minHeight: '100vh',
+  display: 'flex',
+  paddingTop: 65,
 }))
+
+const Content = styled('div')(({ theme }) => ({
+  padding: theme.spacing(3),
+  display: 'flex',
+  flex: 1,
+}));
+
+const Paper = styled(PaperMUI)(({ theme }) => ({
+  flexGrow: 1,
+  borderRadius: 5,
+  padding: theme.spacing(2)
+}));
 
 export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [open, setOpen] = React.useState(false);
@@ -38,12 +52,14 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
       <CssBaseline />
       <Header isOpen={open} onClickOpen={handleDrawerOpen} />
       <SideBar isOpen={open} onPressClose={handleDrawerClose} />
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Main>
         <DrawerHeader />
         <Content>
-          {children}
+          <Paper variant="outlined" elevation={1}>
+            {children}
+          </Paper>
         </Content>
-      </Box>
+      </Main>
     </Box>
   );
 }
