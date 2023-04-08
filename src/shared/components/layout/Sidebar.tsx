@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useRouter } from 'next/router'
+import Image from 'next/image';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -17,6 +18,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import Typography from '@mui/material/Typography';
 
 const drawerWidth = 240;
 
@@ -44,7 +46,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
+  justifyContent: 'space-between',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -90,6 +92,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
+const Content = styled('span')({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+});
+
 type SideBarProps = {
   isOpen: boolean;
   onPressClose: () => void;
@@ -109,6 +117,12 @@ export const SideBar: React.FC<SideBarProps> = ({
   return (
       <Drawer variant="permanent" open={isOpen}>
         <DrawerHeader>
+         {isOpen ? ( 
+            <Content>
+              <Image style={{ marginRight: 8 }} src="/MIT_logo_bg.png" alt="sidebar_logo" width={50} height={50} />
+              <Typography variant="subtitle1">Studen System</Typography>
+            </Content>
+          ): null}
           <IconButton onClick={onPressClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
