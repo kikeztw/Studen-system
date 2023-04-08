@@ -64,10 +64,6 @@ const data = [
 
 ];
 
-const FormContainer = styled('div')({
-  padding: 8,
-});
-
 export const TeacherView: NextPageWithLayout = () => {
   const [isOpen, setOpen] = useState(false);
 
@@ -93,11 +89,11 @@ export const TeacherView: NextPageWithLayout = () => {
       open={isOpen} 
       onClose={handleOpenDialog} 
       title="Agregar profesor">
-        <FormContainer>
-          <TextField label="Outlined" variant="outlined" margin="none" />
-          <TextField label="Outlined" variant="outlined" margin="none" />
-          <TextField label="Outlined" variant="outlined" margin="none" />
-        </FormContainer>
+        <TextField fullWidth label="Nombre" variant="filled" margin="normal" />
+        <TextField fullWidth label="Apellido" variant="filled" margin="normal" />
+        <TextField fullWidth label="Cedula" variant="filled" margin="normal" />
+        <TextField fullWidth label="Telefono" variant="filled" margin="normal" />
+        <TextField fullWidth label="Correo" variant="filled" margin="normal" />
     </Dialog>
     </>
   );

@@ -69,15 +69,15 @@ export const Dialog: React.FC<React.PropsWithChildren<DialogPropss>> = ({
     <BootstrapDialogTitle id="customized-dialog-title" onClose={onClose}>
       {title}
     </BootstrapDialogTitle>
-    <DialogContent dividers>
+    <DialogContent>
       {children}
     </DialogContent>
     <DialogActions>
       <Button onClick={onClose}>
-        Cancel
+        Cancelar
       </Button>
       <Button autoFocus onClick={onClickConfirm}>
-        Save changes
+        Confirmar
       </Button>
     </DialogActions>
   </BootstrapDialog>
