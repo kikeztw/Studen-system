@@ -29,14 +29,14 @@ const columns: GridColDef[] = [
     editable: false,
     width: 150
   },
-  {
+  /*{
     field: 'status',
     headerName: 'Estado',
     sortable: false,
     width: 150
     // valueGetter: (params: GridValueGetterParams) =>
     //   `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },
+  },*/
 ];
 
 const data = [

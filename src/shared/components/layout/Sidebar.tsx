@@ -120,7 +120,7 @@ export const SideBar: React.FC<SideBarProps> = ({
          {isOpen ? ( 
             <Content>
               <Image style={{ marginRight: 8 }} src="/MIT_logo_bg.png" alt="sidebar_logo" width={50} height={50} />
-              <Typography variant="subtitle1">Studen System</Typography>
+              <Typography variant="subtitle1">Students System</Typography>
             </Content>
           ): null}
           <IconButton onClick={onPressClose}>

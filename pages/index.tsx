@@ -28,7 +28,7 @@ export const Home: NextPageWithLayout = () => {
           <Grid xs={6} item>
             <Box display="flex" flexDirection="column" alignItems="center">
               <Image style={{ marginRight: 8 }} src="/MIT_logo_bg.png" alt="sidebar_logo" width={350} height={350} />
-              <Typography variant="h5">Student System</Typography>
+              <Typography variant="h5">Students System</Typography>
             </Box>
           </Grid>
           <Grid xs={6} item>

@@ -33,7 +33,7 @@ export const Home: NextPageWithLayout = () => {
       <FormContainer>
         <Box display="flex" flexDirection="column" alignItems="center" marginBottom={4}>
           <Image style={{ marginRight: 8 }} src="/MIT_logo_bg.png" alt="sidebar_logo" width={150} height={150} />
-          <Typography variant="h6" color="GrayText">Student System</Typography>
+          <Typography variant="h6" color="GrayText">Students System</Typography>
         </Box>
         <TextField fullWidth margin="dense" label="User" />
         <TextField fullWidth margin="dense" label="Password"/>
