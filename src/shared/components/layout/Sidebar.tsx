@@ -72,6 +72,11 @@ const MENU_LIST = [
     icon: <LibraryBooksIcon color="primary" />,
     label: 'Materias',
     route: '/courses'
+  },
+  {
+    icon: <LibraryBooksIcon color="primary" />,
+    label: 'Coordinators',
+    route: '/coordinators'
   }
 ]
 

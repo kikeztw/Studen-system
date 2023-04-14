@@ -63,7 +63,6 @@ export const Dialog: React.FC<React.PropsWithChildren<DialogPropss>> = ({
 }) => (
   <BootstrapDialog
     onClose={onClose}
-    aria-labelledby="customized-dialog-title"
     open={open}
   >
     <BootstrapDialogTitle id="customized-dialog-title" onClose={onClose}>
