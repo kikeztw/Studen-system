@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 
 import { getLayout } from '../src/shared/utils/get-layout';
 import { Table } from '../src/shared/components/table/table';
-import { Dialog } from '../src/shared/components/dialog';
+import { CustomDialog } from '../src/shared/components/CustomDialog';
 
 const columns: GridColDef[] = [
   { field: 'firstName', headerName: 'Nombre' },
@@ -71,13 +71,13 @@ export const CoursesView: NextPageWithLayout = () => {
           </Button>
         } 
       />
-      <Dialog 
+      <CustomDialog 
         open={isOpen} 
         onClose={handleOpenDialog} 
         title="Agregar Materia">
           <TextField fullWidth label="Nombre" variant="filled" margin="normal" />
           <TextField fullWidth label="Curso" variant="filled" margin="normal" />
-      </Dialog>
+      </CustomDialog>
     </>
   );
 }

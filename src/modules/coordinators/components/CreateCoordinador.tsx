@@ -5,10 +5,9 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 import { useForm, Controller } from "react-hook-form";
 
-
-import { Dialog } from '../../../shared/components/dialog';
+import { CustomDialog } from '../../../shared/components/CustomDialog';
 import { EMAIL_REGEX } from '../../../shared/constants/form';
-import { inviteCoordinador } from '../../../shared/firebase/actions';
+import { inviteUser } from '../../../shared/firebase/actions/auth';
 
 const MESSAGE = "Se enviara un correo de confirmación en la dirección proporcionada para completar el proceso de registro en nuestra aplicación. Verifica tu bandeja de entrada y spam en caso de no encontrarlo."
 
@@ -23,10 +22,11 @@ export const CreateCoordinador: React.FC<CreateCoordinadorProps> = ({
 }) => {
   const {  control, formState: { errors }, handleSubmit } = useForm<{ email: string }>();
   const onSubmit = handleSubmit((value) => {
-    inviteCoordinador(value.email);
+    inviteUser(value.email);
+    onClose();
   })
   return (
-    <Dialog 
+    <CustomDialog 
       open={open} 
       onClose={onClose} 
       onClickConfirm={onSubmit}
@@ -64,6 +64,6 @@ export const CreateCoordinador: React.FC<CreateCoordinadorProps> = ({
           )}
         />
       </Stack>
-    </Dialog>
+    </CustomDialog>
   );
 }

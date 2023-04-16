@@ -54,7 +54,7 @@ type DialogPropss = {
   title: string;
 }
 
-export const Dialog: React.FC<React.PropsWithChildren<DialogPropss>> = ({
+export const CustomDialog: React.FC<React.PropsWithChildren<DialogPropss>> = ({
   open,
   onClose,
   children,

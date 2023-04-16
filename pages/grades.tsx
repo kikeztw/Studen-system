@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 
 import { getLayout } from '../src/shared/utils/get-layout';
 import { Table } from '../src/shared/components/table/table';
-import { Dialog } from '../src/shared/components/dialog';
+import { CustomDialog } from '../src/shared/components/CustomDialog';
 
 const columns: GridColDef[] = [
   { field: 'firstName', headerName: 'Nombre' },
@@ -67,14 +67,14 @@ export const GradesView: NextPageWithLayout = () => {
           </Button>
         } 
       />
-      <Dialog 
+      <CustomDialog 
         open={isOpen} 
         onClose={handleOpenDialog} 
         title="Asignar Nota">
         <TextField fullWidth label="Alumno" variant="filled" margin="normal" />
         <TextField fullWidth label="Materia" variant="filled" margin="normal" />
         <TextField fullWidth label="Nota" variant="filled" margin="normal" />
-      </Dialog>
+      </CustomDialog>
     </>
   );
 }

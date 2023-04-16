@@ -4,6 +4,9 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
+import { SnackbarProvider } from 'notistack';
+
+
 import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
 
@@ -29,7 +32,9 @@ export default function MyApp(props: MyAppProps) {
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        {getLayout(<Component {...pageProps} />)}
+        <SnackbarProvider maxSnack={3}>
+          {getLayout(<Component {...pageProps} />)}
+        </SnackbarProvider>
       </ThemeProvider>
     </CacheProvider>
   );

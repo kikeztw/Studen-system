@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 
 import { getLayout } from '../src/shared/utils/get-layout';
 import { Table } from '../src/shared/components/table/table';
-import { Dialog } from '../src/shared/components/dialog';
+import { CustomDialog } from '../src/shared/components/CustomDialog';
 
 const columns: GridColDef[] = [
   { field: 'firstName', headerName: 'Nombre',  editable: false, width: 150 },
@@ -85,7 +85,7 @@ export const TeacherView: NextPageWithLayout = () => {
           </Button>
         } 
       />
-     <Dialog 
+     <CustomDialog 
       open={isOpen} 
       onClose={handleOpenDialog} 
       title="Agregar profesor">
@@ -94,7 +94,7 @@ export const TeacherView: NextPageWithLayout = () => {
         <TextField fullWidth label="Cedula" variant="filled" margin="normal" />
         <TextField fullWidth label="Telefono" variant="filled" margin="normal" />
         <TextField fullWidth label="Correo" variant="filled" margin="normal" />
-    </Dialog>
+    </CustomDialog>
     </>
   );
 }
