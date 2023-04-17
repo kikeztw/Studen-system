@@ -23,7 +23,7 @@ const Container = styled('div')({
 
 export const SignIn: React.FC = () => {
   const { query } = useRouter();
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
   const [current, setCurrent] = useState(0);
   const steps = useMemo(() => {
     return [
