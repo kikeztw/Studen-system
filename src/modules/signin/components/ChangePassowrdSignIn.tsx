@@ -18,7 +18,7 @@ export const ChangePassowrdSignIn: React.FC<ChangePassowrdSignInProps> = ({
   onFinish,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const {  control, formState: { errors }, handleSubmit } = useForm<FormType>();
+  const { control, formState: { errors }, handleSubmit } = useForm<FormType>();
   const [isLoading, setLoading] = useState(false);
 
   const onSubmit = handleSubmit(async (value) => {
@@ -44,6 +44,13 @@ export const ChangePassowrdSignIn: React.FC<ChangePassowrdSignInProps> = ({
               value: true,
               message: 'Password Requerida'
             },
+            pattern:{
+              value: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
+              message: ''
+            },
+            validate: (value) => {
+              return value
+            }
           }}
           render={({field: { onChange, value } }) => (
             <TextField 

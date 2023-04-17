@@ -1,10 +1,11 @@
 import { 
-  UserCredential,
   getAuth, 
+  UserCredential,
   updatePassword,
+  signInWithEmailLink,
   sendSignInLinkToEmail, 
   isSignInWithEmailLink, 
-  signInWithEmailLink 
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { getCurrentUser } from "./user";
 import { app } from "../config";
@@ -66,4 +67,14 @@ export const signInWithEmail = async (email: string): Promise<UserCredential | u
     throw new Error('Error');
   }
 
+};
+
+export const signInUser = async (email: string, password: string): Promise<void> => {
+  const auth = getAuth(app);
+  try {
+    await signInWithEmailAndPassword(auth, email, password)
+  } catch (error) {
+    console.log(JSON.stringify(error));
+    throw new Error('Error signin user');
+  }
 };
