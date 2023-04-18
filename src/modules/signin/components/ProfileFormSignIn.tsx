@@ -48,7 +48,7 @@ export const ProfileFormSignIn: React.FC = () => {
           rules={{
             required: {
               value: true,
-              message: 'Email Requerido'
+              message: 'Nombre Requerido'
             },
           }}
           render={({field: { onChange, value } }) => (
@@ -70,7 +70,7 @@ export const ProfileFormSignIn: React.FC = () => {
           rules={{
             required: {
               value: true,
-              message: 'Email Requerido'
+              message: 'Apellido Requerido'
             },
           }}
           render={({field: { onChange, value } }) => (
@@ -92,7 +92,7 @@ export const ProfileFormSignIn: React.FC = () => {
           rules={{
             required: {
               value: true,
-              message: 'Email Requerido'
+              message: 'Cedula Requerida'
             },
           }}
           render={({field: { onChange, value } }) => (
@@ -114,13 +114,13 @@ export const ProfileFormSignIn: React.FC = () => {
           rules={{
             required: {
               value: true,
-              message: 'Email Requerido'
+              message: 'Telefono Requerido'
             },
           }}
           render={({field: { onChange, value } }) => (
             <TextField 
               fullWidth 
-              label="telefono" 
+              label="Telefono" 
               variant="filled"
               margin="normal" 
               onChange={onChange}

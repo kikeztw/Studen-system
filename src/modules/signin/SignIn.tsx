@@ -28,7 +28,7 @@ export const SignIn: React.FC = () => {
   const steps = useMemo(() => {
     return [
       {
-        label: 'Selecciona una contrasena',
+        label: 'Escribe una contraseña',
         component: <ChangePassowrdSignIn onFinish={() => setCurrent(1)} />
       },
       {
