@@ -1,0 +1,15 @@
+{
+  "/_app": "pages/_app.js",
+  "/_document": "pages/_document.js",
+  "/about": "pages/about.html",
+  "/coordinators": "pages/coordinators.html",
+  "/courses": "pages/courses.html",
+  "/grades": "pages/grades.html",
+  "/": "pages/index.html",
+  "/signin": "pages/signin.html",
+  "/login": "pages/login.html",
+  "/students": "pages/students.html",
+  "/teachers": "pages/teachers.html",
+  "/_error": "pages/_error.js",
+  "/404": "pages/404.html"
+}
