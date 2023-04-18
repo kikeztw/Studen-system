@@ -1,4 +1,5 @@
 import { 
+  signOut,
   getAuth, 
   UserCredential,
   updatePassword,
@@ -78,3 +79,8 @@ export const signInUser = async (email: string, password: string): Promise<void>
     throw new Error('Error signin user');
   }
 };
+
+export const signOutUser = async (): Promise<void> => {
+  const auth = getAuth(app);
+  await signOut(auth);
+}

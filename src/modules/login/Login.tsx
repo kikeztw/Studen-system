@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import Button from '@mui/lab/LoadingButton';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material';
 import Image from 'next/image';
@@ -44,6 +44,7 @@ export const Login: React.FC = () => {
       setLoading(false);
     }
   })
+
   return (
     <Container>
       <FormContainer>
@@ -67,6 +68,7 @@ export const Login: React.FC = () => {
               fullWidth 
               margin="dense" 
               label="Email" 
+              type="email"
               error={Boolean(errors.email?.ref)}
               helperText={errors?.email?.message}
             />
@@ -95,7 +97,7 @@ export const Login: React.FC = () => {
           )}
         />
         <Box marginTop={2}>
-          <Button onClick={onClickRedirectToLogin} size="large" fullWidth variant="contained">Login</Button>
+          <Button loading={isLoading} onClick={onClickRedirectToLogin} size="large" fullWidth variant="contained">Login</Button>
         </Box>
       </FormContainer>
     </Container>

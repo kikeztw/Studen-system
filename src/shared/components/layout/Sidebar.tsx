@@ -20,6 +20,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import Typography from '@mui/material/Typography';
 
+import { signOutUser } from '../../firebase/actions/auth';
+
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -119,6 +121,11 @@ export const SideBar: React.FC<SideBarProps> = ({
     router.push(route);
   }
 
+  const logOut = (): void => {
+    signOutUser();
+    router.push('/login');
+  }
+
   return (
       <Drawer variant="permanent" open={isOpen}>
         <DrawerHeader>
@@ -159,9 +166,9 @@ export const SideBar: React.FC<SideBarProps> = ({
             ))}
           </List>
           {isOpen ? (
-            <Button size="large" startIcon={<LogoutIcon />}>Logout</Button>
+            <Button onClick={logOut} size="large" startIcon={<LogoutIcon />}>Logout</Button>
           ): (
-            <IconButton color="primary" aria-label="upload picture" component="label">
+            <IconButton onClick={logOut} color="primary" aria-label="upload picture" component="label">
               <LogoutIcon />
             </IconButton>
           )}

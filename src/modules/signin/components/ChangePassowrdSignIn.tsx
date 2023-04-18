@@ -28,6 +28,7 @@ export const ChangePassowrdSignIn: React.FC<ChangePassowrdSignInProps> = ({
       await changePassword(value.password);
     } catch (error) {
       setLoading(false);
+      console.log('ERROR', JSON.stringify(error));
       enqueueSnackbar('Something is wromg', { variant: 'error' });
       return;
     }
