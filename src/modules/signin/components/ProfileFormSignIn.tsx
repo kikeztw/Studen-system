@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/lab/LoadingButton';
-
+import MenuItem from '@mui/material/MenuItem';
 import { useForm, Controller } from 'react-hook-form';
 
 import { createProfile } from '../../../shared/firebase/actions/profile';
