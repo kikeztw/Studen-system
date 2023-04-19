@@ -77,7 +77,7 @@ const MENU_LIST = [
   },
   {
     icon: <LibraryBooksIcon color="primary" />,
-    label: 'Coordinators',
+    label: 'Coordinadores',
     route: '/coordinators'
   }
 ]

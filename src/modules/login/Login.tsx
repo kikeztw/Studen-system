@@ -58,7 +58,7 @@ export const Login: React.FC = () => {
           rules={{
             required:{
               value: true,
-              message: 'Email is required',
+              message: 'Email es requerido',
             }
           }}
           render={({ field: { onChange, value } }) => (
@@ -80,7 +80,7 @@ export const Login: React.FC = () => {
           rules={{
             required:{
               value: true,
-              message: 'Password is required',
+              message: 'La contraseña es requerida',
             }
           }}
           render={({ field: { onChange, value } }) => (

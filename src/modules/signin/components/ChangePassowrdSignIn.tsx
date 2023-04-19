@@ -29,7 +29,7 @@ export const ChangePassowrdSignIn: React.FC<ChangePassowrdSignInProps> = ({
     } catch (error) {
       setLoading(false);
       console.log('ERROR', JSON.stringify(error));
-      enqueueSnackbar('Something is wromg', { variant: 'error' });
+      enqueueSnackbar('Something is wrong', { variant: 'error' });
       return;
     }
     setLoading(false);
@@ -44,13 +44,13 @@ export const ChangePassowrdSignIn: React.FC<ChangePassowrdSignInProps> = ({
         rules={{
           required: {
             value: true,
-            message: 'Password Requerida',
+            message: 'Contraseña Requerida',
             
           },
           pattern: {
             value: /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{6,16}$/
             ,
-            message: 'La contraseña debe tener entre 6 y 16 caracteres, al menos un caracter nunmerico y uno alfanumerico'
+            message: 'La contraseña debe tener entre 6 y 16 caracteres, al menos un caracter nunmerico y uno alfanumerico. Deben coincidir'
           }
         }}
         render={({ field: { onChange, value } }) => (
@@ -73,7 +73,7 @@ export const ChangePassowrdSignIn: React.FC<ChangePassowrdSignInProps> = ({
         rules={{
           required: {
             value: true,
-            message: 'Confirmar contraseña es requerido'
+            message: 'Debe confirmar la Contraseña'
           },
         }}
         render={({ field: { onChange, value } }) => (
