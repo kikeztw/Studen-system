@@ -28,12 +28,8 @@ export const ChangePassowrdSignIn: React.FC<ChangePassowrdSignInProps> = ({
       await changePassword(value.password);
     } catch (error) {
       setLoading(false);
-<<<<<<< Updated upstream
       console.log('ERROR', JSON.stringify(error));
-      enqueueSnackbar('Something is wromg', { variant: 'error' });
-=======
-      enqueueSnackbar('Error. Verifica los datos', { variant: 'error' });
->>>>>>> Stashed changes
+      enqueueSnackbar('Something is wrong', { variant: 'error' });
       return;
     }
     setLoading(false);
