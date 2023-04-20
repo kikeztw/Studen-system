@@ -1,42 +1,62 @@
 import { useState } from 'react';
-import { NextPageWithLayout } from '../src/shared/types/page';
-import { GridColDef } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { type MRT_ColumnDef } from 'material-react-table';
 
-import { getLayout } from '../src/shared/utils/get-layout';
-import { Table } from '../src/shared/components/table/table';
-import { CustomDialog } from '../src/shared/components/CustomDialog';
+import { Table } from '../../shared/components/table/table';
 
-const columns: GridColDef[] = [
-  { field: 'firstName', headerName: 'Nombre', width: 150 },
-  { field: 'lastname', headerName: 'Apellido', width: 150 },
-  {
-    field: 'ci',
-    headerName: 'Cedula',
-    editable: false,
-    width: 150
+import { CreateTeacher } from './components/CreateTeacher';
+
+const columns: MRT_ColumnDef<Record<string, any>>[] = [
+  { 
+
+    accessorKey: 'firstName',
+    header: 'Nombre',
+    enableColumnOrdering: false,
+    enableEditing: false, //disable editing on this column
+    enableSorting: false,
+    size: 150,
   },
-  {
-    field: 'phone',
-    headerName: 'Telefono',
-    editable: false,
-    width: 150
+  { 
+
+    accessorKey: 'lastname',
+    header: 'Apellido',
+    enableColumnOrdering: false,
+    enableEditing: false, //disable editing on this column
+    enableSorting: false,
+    size: 150,
   },
-  {
-    field: 'email',
-    headerName: 'Correo',
-    editable: false,
-    width: 150
+  { 
+    accessorKey: 'ci',
+    header: 'Cedula',
+    enableColumnOrdering: false,
+    enableEditing: false, //disable editing on this column
+    enableSorting: false,
+    size: 150,
   },
-  /*{
-    field: 'status',
-    headerName: 'Estado',
-    sortable: false,
-    width: 150
-    // valueGetter: (params: GridValueGetterParams) =>
-    //   `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },*/
+  { 
+    accessorKey: 'phone',
+    header: 'Telefono',
+    enableColumnOrdering: false,
+    enableEditing: false, //disable editing on this column
+    enableSorting: false,
+    size: 150,
+  },
+  { 
+    accessorKey: 'email',
+    header: 'Correo',
+    enableColumnOrdering: false,
+    enableEditing: false, //disable editing on this column
+    enableSorting: false,
+    size: 150,
+  },
+  { 
+    accessorKey: 'status',
+    header: 'Estado',
+    enableColumnOrdering: false,
+    enableEditing: false, //disable editing on this column
+    enableSorting: false,
+    size: 150,
+  },
 ];
 
 const data = [
@@ -59,37 +79,29 @@ const data = [
 
 ];
 
-export const StudenView: NextPageWithLayout = () => {
+export const Teachers: React.FC = () => {
   const [isOpen, setOpen] = useState(false);
 
   const handleOpenDialog = (): void => {
     setOpen((state) => !state);
   }
+
   return (
     <>
-      {/* <Table 
-        title="Estudiantes"
+      <Table 
+        title="Profesores" 
         columns={columns} 
-        data={data} 
-        button={
-          <Button onClick={handleOpenDialog} variant="contained">
-            Registrar Estudiante
-          </Button>} 
-      /> */}
-      <CustomDialog 
-        open={isOpen} 
-        onClose={handleOpenDialog} 
-        title="Agregar Estudiante">
-          <TextField fullWidth label="Nombre" variant="filled" margin="normal" />
-          <TextField fullWidth label="Apellido" variant="filled" margin="normal" />
-          <TextField fullWidth label="Cedula" variant="filled" margin="normal" />
-          <TextField fullWidth label="Telefono" variant="filled" margin="normal" />
-          <TextField fullWidth label="Correo" variant="filled" margin="normal" />
-      </CustomDialog>
+        data={data}  
+        onClickEdit={(e) => console.log(e)}
+        button={() => (
+          <Button 
+            onClick={handleOpenDialog}
+            variant="contained">
+              Registrar Profesor
+          </Button>
+        )} 
+      />
+     <CreateTeacher open={isOpen} onClose={handleOpenDialog} />
     </>
   );
 }
-
-StudenView.getLayout = getLayout
-
-export default StudenView;

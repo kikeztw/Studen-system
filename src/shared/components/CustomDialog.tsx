@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
+import Button from '@mui/lab/LoadingButton';
 import { styled } from '@mui/material/styles';
 import DialogMUI from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -52,12 +52,14 @@ type DialogPropss = {
   onClose: () => void;
   onClickConfirm?: () => void;
   title: string;
+  isLoading?: boolean;
 }
 
 export const CustomDialog: React.FC<React.PropsWithChildren<DialogPropss>> = ({
   open,
   onClose,
   children,
+  isLoading,
   onClickConfirm,
   title,
 }) => (
@@ -75,7 +77,7 @@ export const CustomDialog: React.FC<React.PropsWithChildren<DialogPropss>> = ({
       <Button onClick={onClose}>
         Cancelar
       </Button>
-      <Button variant="contained" autoFocus onClick={onClickConfirm}>
+      <Button loading={isLoading} variant="contained" autoFocus onClick={onClickConfirm}>
         Confirmar
       </Button>
     </DialogActions>

@@ -57,7 +57,7 @@ export const GradesView: NextPageWithLayout = () => {
   }
   return (
     <>
-      <Table 
+      {/* <Table 
         title="Notas"
         columns={columns} 
         data={data} 
@@ -66,7 +66,7 @@ export const GradesView: NextPageWithLayout = () => {
             Subir Nota
           </Button>
         } 
-      />
+      /> */}
       <CustomDialog 
         open={isOpen} 
         onClose={handleOpenDialog} 

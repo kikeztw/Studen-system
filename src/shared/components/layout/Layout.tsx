@@ -30,10 +30,9 @@ const Content = styled('div')(({ theme }) => ({
   flex: 1,
 }));
 
-const Paper = styled(PaperMUI)(({ theme }) => ({
+const Wrapper = styled('div')(({ theme }) => ({
   flexGrow: 1,
   borderRadius: 5,
-  padding: theme.spacing(2)
 }));
 
 export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
@@ -55,9 +54,9 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
       <Main>
         <DrawerHeader />
         <Content>
-          <Paper variant="outlined" elevation={1}>
+          <Wrapper>
             {children}
-          </Paper>
+          </Wrapper>
         </Content>
       </Main>
     </Box>

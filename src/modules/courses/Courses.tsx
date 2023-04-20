@@ -31,7 +31,7 @@ export const Courses: React.FC = () => {
   
   return (
     <>
-      <Table 
+      {/* <Table 
         title="Materias"
         columns={columns} 
         data={data} 
@@ -42,7 +42,7 @@ export const Courses: React.FC = () => {
               Registrar Materia
           </Button>
         } 
-      />
+      /> */}
       <CreateMateriaForm open={isOpen} onClose={handleOpenDialog} />
     </>
   );

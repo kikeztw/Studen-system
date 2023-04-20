@@ -1,57 +1,54 @@
-import * as React from 'react';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import React from 'react';
+import MaterialReactTable, {
+  type MRT_Row,
+  type MRT_ColumnDef,
+} from 'material-react-table';
+import {
+  Box,
+  IconButton,
+} from '@mui/material';
+import { Delete, Edit } from '@mui/icons-material';
+
 
 type Table<T = {}> = {
   data: T[];
-  columns: GridColDef[];
+  columns: MRT_ColumnDef<Record<string, any>>[];
   title?: string;
-  button?: React.ReactNode;
+  onClickDelete?: (value: T) => void;
+  onClickEdit?: (value: T) => void;
+  button?: () => React.ReactNode;
 };
 
-export const Table: React.FC<Table> = ({
-  data,
-  columns,
-  title,
-  button
-}) => {
+export const Table: React.FC<Table> = ({ button, data, onClickDelete, columns, onClickEdit }) => {
   return (
-    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-       <AppBar elevation={0} color="transparent" position="relative">
-        <Toolbar>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            {title}
-          </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-          {button}
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Box sx={{ flexGrow: 1 }}>
-        <DataGrid
-          style={{ borderRadius: 0, borderWidth: 0 }}
-          rows={data}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 10,
-              },
+    <>
+      <MaterialReactTable
+        displayColumnDefOptions={{
+          'mrt-row-actions': {
+            muiTableHeadCellProps: {
+              align: 'center',
             },
-          }}
-          pageSizeOptions={[5]}
-          disableRowSelectionOnClick
-          rowSelection={false}
-        />
-      </Box>
-    </Box>
-      
+            size: 120,
+          },
+        }}
+        columns={columns}
+        data={data}
+        editingMode="modal" //default
+        enableColumnOrdering
+        enableEditing
+        muiTableProps={{ style: { paddingTop: 15 }}}
+        renderRowActions={({ row, table }) => (
+          <Box sx={{ display: 'flex', gap: '1rem' }}>
+            <IconButton onClick={() => onClickEdit?.(row.original)}>
+              <Edit />
+            </IconButton>
+            <IconButton color="error" onClick={() => onClickDelete?.(row.original)}>
+              <Delete />
+            </IconButton>
+          </Box>
+        )}
+        renderTopToolbarCustomActions={button}
+      />
+    </>
   );
-}
+};
