@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { useForm, Controller } from 'react-hook-form';
 
@@ -27,7 +27,18 @@ export const TeacherForm: React.FC<TeacherFormProps> = ({
   isLoading,
   onCloseModal,
 }) => {
-  const {  control, formState: { errors }, handleSubmit } = useForm<TeacherFormType>();
+  const {  control, formState: { errors }, handleSubmit, reset } = useForm<TeacherFormType>();
+
+  useEffect(() => {
+    if(open){
+      reset({
+        firstname: '',
+        lastname: '',
+        ci: '',
+        phone: '',
+      })
+    }
+  }, [open]);
 
   const onSubmitForm = handleSubmit(async (value) => {
     onSubmit?.(value);
@@ -77,6 +88,29 @@ export const TeacherForm: React.FC<TeacherFormProps> = ({
             label="Apellido" 
             variant="filled"
             margin="normal" 
+            onChange={onChange}
+            value={value}
+            error={Boolean(errors?.lastname?.ref)}
+            helperText={errors?.lastname?.message}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        name="email"
+        rules={{
+          required: {
+            value: true,
+            message: 'Email Requerido'
+          },
+        }}
+        render={({field: { onChange, value } }) => (
+          <TextField 
+            fullWidth 
+            label="Email" 
+            variant="filled"
+            margin="normal" 
+            type="email"
             onChange={onChange}
             value={value}
             error={Boolean(errors?.lastname?.ref)}
