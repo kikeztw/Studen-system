@@ -17,3 +17,7 @@ export const getAllTeachers = async (): Promise<TeacherCollectionType[]> => {
   });
   return list;
 };
+
+export const getTeacherById = async (id: string): Promise<TeacherCollectionType | null> => {
+  return Teachers.get(id);
+};

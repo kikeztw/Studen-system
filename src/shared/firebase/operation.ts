@@ -1,4 +1,6 @@
 import { 
+  doc,
+  getDoc,
   Unsubscribe,
   onSnapshot,
   query,
@@ -35,6 +37,15 @@ export class Operation<T extends DocumentData>{
 
   async get_list(): Promise<QuerySnapshot<T>>{
     return getDocs(this.collection);
+  }
+
+  async get(id: string): Promise<T | null> {
+    const docRef = doc(database, this.name, id) as DocumentReference<T>;
+    const docSnap = await getDoc<T>(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
+    }
+    return null;
   }
 
   subscription(cb: (value: QuerySnapshot<T>) => void): void {

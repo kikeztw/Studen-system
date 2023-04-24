@@ -13,6 +13,7 @@ export type TeacherFormType = {
 }
 
 type TeacherFormProps = {
+  data?: TeacherFormType;
   open: boolean;
   modalTitle: string;
   onCloseModal: () => void;
@@ -21,35 +22,50 @@ type TeacherFormProps = {
 }
 
 export const TeacherForm: React.FC<TeacherFormProps> = ({
+  data,
   open,
   modalTitle,
   onSubmit,
   isLoading,
   onCloseModal,
 }) => {
-  const {  control, formState: { errors }, handleSubmit, reset } = useForm<TeacherFormType>();
+  const {  control, formState: { errors }, handleSubmit, reset, setValue } = useForm<TeacherFormType>();
+
+  const resetForm = (): void => {
+    reset({
+      firstname: '',
+      lastname: '',
+      ci: '',
+      phone: '',
+    })
+  }
 
   useEffect(() => {
-    if(open){
-      reset({
-        firstname: '',
-        lastname: '',
-        ci: '',
-        phone: '',
-      })
+    if(data && open){
+      setValue('firstname', data.firstname);
+      setValue('lastname', data.lastname);
+      setValue('ci', data.ci);
+      setValue('email', data.email);
+      setValue('phone', data.phone);
     }
-  }, [open]);
+
+  }, [open, data]);
 
   const onSubmitForm = handleSubmit(async (value) => {
     onSubmit?.(value);
   });
+
+  const handlerClose = (): void =>{
+    resetForm();
+    onCloseModal();
+  }
 
   return (
     <CustomDialog 
       open={open} 
       isLoading={isLoading}
       onClickConfirm={onSubmitForm}
-      onClose={onCloseModal} 
+      onClose={handlerClose} 
       title={modalTitle}>
       <Controller
         control={control}
