@@ -10,7 +10,7 @@ import {
 import { Delete, Edit } from '@mui/icons-material';
 
 
-type Table<T = {}> = {
+type Table<T> = {
   data: T[];
   columns: MRT_ColumnDef<Record<string, any>>[];
   title?: string;
@@ -19,7 +19,7 @@ type Table<T = {}> = {
   button?: () => React.ReactNode;
 };
 
-export const Table: React.FC<Table> = ({ button, data, onClickDelete, columns, onClickEdit }) => {
+export const Table = <T extends Record<string, any>,>({ button, data, onClickDelete, columns, onClickEdit }: Table<T>): React.ReactElement => {
   return (
     <>
       <MaterialReactTable
@@ -39,10 +39,10 @@ export const Table: React.FC<Table> = ({ button, data, onClickDelete, columns, o
         muiTableProps={{ style: { paddingTop: 15 }}}
         renderRowActions={({ row, table }) => (
           <Box sx={{ display: 'flex', gap: '1rem' }}>
-            <IconButton onClick={() => onClickEdit?.(row.original)}>
+            <IconButton onClick={() => onClickEdit?.(row.original as T)}>
               <Edit />
             </IconButton>
-            <IconButton color="error" onClick={() => onClickDelete?.(row.original)}>
+            <IconButton color="error" onClick={() => onClickDelete?.(row.original as T)}>
               <Delete />
             </IconButton>
           </Box>

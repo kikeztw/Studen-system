@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { type MRT_ColumnDef } from 'material-react-table';
+import { useRouter } from 'next/router';
 
 import { Table } from '../../shared/components/table/table';
 import { TeacherCollectionType } from '../../shared/types/collections';
-import { getAllTeachers, Teachers as TeacherOperation } from '../../shared/firebase/actions/teachers';
+import { Teachers as TeacherOperation } from '../../shared/firebase/actions/teachers';
+import { DeleteWarnModal } from '../../shared/components/DeleteWarnModal';
 
 import { CreateTeacher } from './components/CreateTeacher';
+import { EditTeacher } from './components/EditTeacher';
 
 const columns: MRT_ColumnDef<Record<string, any>>[] = [
   { 
@@ -64,7 +67,9 @@ const columns: MRT_ColumnDef<Record<string, any>>[] = [
 
 export const Teachers: React.FC = () => {
   const [isOpen, setOpen] = useState(false);
+  const [deleteRecord, setDeleteRecord] = useState<TeacherCollectionType>();
   const [data, setData] = useState<TeacherCollectionType[]>([]);
+  const router= useRouter();
 
   const handleOpenDialog = (): void => {
     setOpen((state) => !state);
@@ -84,13 +89,24 @@ export const Teachers: React.FC = () => {
     }
   }, []);
 
+  const onDelete = (e: TeacherCollectionType): void =>{
+    setDeleteRecord(e)
+  }
+
+  const onCloseDeteleModal = () => {
+    setDeleteRecord(undefined);
+  }
+
   return (
     <>
       <Table 
         title="Profesores" 
         columns={columns} 
         data={data}  
-        onClickEdit={(e) => console.log(e)}
+        onClickDelete={(e) => onDelete(e)}
+        onClickEdit={(e: TeacherCollectionType) => {
+          router.push({ pathname: 'teachers', query: { edit: e.id } })
+        }}
         button={() => (
           <Button 
             onClick={handleOpenDialog}
@@ -100,6 +116,12 @@ export const Teachers: React.FC = () => {
         )} 
       />
      <CreateTeacher open={isOpen} onClose={handleOpenDialog} />
+     <DeleteWarnModal 
+        onConfirm={() => {}} 
+        open={Boolean(deleteRecord)} 
+        onClose={onCloseDeteleModal} 
+      />
+     <EditTeacher />
     </>
   );
 }
