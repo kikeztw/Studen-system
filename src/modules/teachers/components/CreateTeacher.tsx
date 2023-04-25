@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useSnackbar } from 'notistack';
 
 import { createTeacher } from '../../../shared/firebase/actions/teachers';
-import { TeacherForm, TeacherFormType } from './TeacherForm';
+import { TeacherForm } from './TeacherForm';
+import { TeacherCollectionType } from '../../../shared/types/collections';
 
 
 type CreateTeacherProps = {
@@ -17,7 +18,7 @@ export const CreateTeacher: React.FC<CreateTeacherProps> = ({
   const [isLoading, setLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
-  const onSubmit = async (value:  TeacherFormType) => {
+  const onSubmit = async (value:  TeacherCollectionType) => {
     setLoading(true);
     try {
       await createTeacher({ ...value, status: 'Activo' });
