@@ -3,22 +3,16 @@ import TextField from '@mui/material/TextField';
 import { useForm, Controller } from 'react-hook-form';
 
 import { CustomDialog } from '../../../shared/components/CustomDialog';
+import { TeacherCollectionType } from '../../../shared/types/collections';
 
-export type TeacherFormType = {
-  firstname: string;
-  lastname: string;
-  ci: string;
-  phone: string;
-  email: string;
-}
 
 type TeacherFormProps = {
-  data?: TeacherFormType;
+  data?: TeacherCollectionType;
   open: boolean;
   modalTitle: string;
   onCloseModal: () => void;
   isLoading: boolean;
-  onSubmit?: (value: TeacherFormType) => void;
+  onSubmit?: (value: TeacherCollectionType) => void;
 }
 
 export const TeacherForm: React.FC<TeacherFormProps> = ({
@@ -29,7 +23,7 @@ export const TeacherForm: React.FC<TeacherFormProps> = ({
   isLoading,
   onCloseModal,
 }) => {
-  const {  control, formState: { errors }, handleSubmit, reset, setValue } = useForm<TeacherFormType>();
+  const {  control, formState: { errors }, handleSubmit, reset, setValue } = useForm<TeacherCollectionType>();
 
   const resetForm = (): void => {
     reset({

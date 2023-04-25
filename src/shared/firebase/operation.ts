@@ -1,6 +1,8 @@
 import { 
   doc,
+  UpdateData,
   getDoc,
+  updateDoc,
   Unsubscribe,
   onSnapshot,
   query,
@@ -23,6 +25,17 @@ export class Operation<T extends DocumentData>{
   constructor(name: string){
     this.name = name;
     this.collection = collection(database, name) as  CollectionReference<T>;
+  }
+
+  async update(id: string, data: UpdateData<T>): Promise<void>{
+    const docRef = doc(database, this.name, id) as DocumentReference<T>;
+    try{
+      return updateDoc<T>(docRef, data);
+    }catch(error){
+      const meessage = `Operation error in create ${this.name}`;
+      console.log(meessage, JSON.stringify(error, null, 2));
+      throw new Error(meessage);
+    }
   }
 
   async create(data: T): Promise<DocumentReference<T>>{

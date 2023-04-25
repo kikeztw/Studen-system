@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 
-import { getTeacherById } from '../../../shared/firebase/actions/teachers';
-import { TeacherForm, TeacherFormType } from './TeacherForm';
-
+import { TeacherCollectionType } from '../../../shared/types/collections';
+import { getTeacherById, updateTeacherById } from '../../../shared/firebase/actions/teachers';
+import { TeacherForm } from './TeacherForm';
 
 
 export const EditTeacher: React.FC = () => {
   const router = useRouter();
   const [isLoading, setLoading] = useState(true);
-  const [initialData, setData] = useState<TeacherFormType>();
+  const [initialData, setData] = useState<TeacherCollectionType>();
   const { enqueueSnackbar } = useSnackbar();
 
   const getIntialData = async (): Promise<void> => {
@@ -33,12 +33,13 @@ export const EditTeacher: React.FC = () => {
     router.back();
   }
 
-  const onSubmit = async (value:  TeacherFormType) => {
+  const onSubmit = async (value:  TeacherCollectionType) => {
     setLoading(true);
     try {
-      // await createTeacher({ ...value, status: 'Activo' });
+      await updateTeacherById(router.query?.edit as string, value);
     } catch (error) {
       enqueueSnackbar('Something is wrong', { variant: 'error' });
+      setLoading(false);
       return;
     }
     enqueueSnackbar('Profesor registrado con exito', { variant: 'success' });
