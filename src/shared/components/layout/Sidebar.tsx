@@ -18,6 +18,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import Typography from '@mui/material/Typography';
 
 import { signOutUser } from '../../firebase/actions/auth';
@@ -76,7 +77,7 @@ const MENU_LIST = [
     route: '/courses'
   },
   {
-    icon: <LibraryBooksIcon color="primary" />,
+    icon: <AssignmentIndIcon color="primary" />,
     label: 'Coordinadores',
     route: '/coordinators'
   }

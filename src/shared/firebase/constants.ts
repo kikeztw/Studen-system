@@ -15,8 +15,7 @@ export const actionCodeSettings = {
   dynamicLinkDomain: 'example.page.link'
 };
 
-
-
 export enum COLLECTION_NAME {
   teachers = "TEACHERS",
+  coordinators = 'profile'
 }

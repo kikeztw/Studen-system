@@ -34,7 +34,7 @@ export const Home: NextPageWithLayout = () => {
           <Grid xs={6} item>
             <Typography sx={{ marginBottom: 5 }} variant="h3" textAlign="center">Acceso al Sistema</Typography>
             <Button onClick={onClickRedirectToLogin} sx={{ marginBottom: 3 }} size="large" fullWidth variant="contained" color="primary">Administrador</Button>
-            <Button size="large" fullWidth variant="contained" color="primary">Estudiante</Button>
+            <Button disabled size="large" fullWidth variant="contained" color="primary">Estudiante</Button>
           </Grid>
         </Grid>
       </ContainerMui>
