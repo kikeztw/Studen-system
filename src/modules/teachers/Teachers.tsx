@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { type MRT_ColumnDef } from 'material-react-table';
 import { useRouter } from 'next/router';
+import { useSnackbar } from 'notistack';
 
 import { Table } from '../../shared/components/table/table';
 import { TeacherCollectionType } from '../../shared/types/collections';
 import { Teachers as TeacherOperation } from '../../shared/firebase/actions/teachers';
 import { DeleteWarnModal } from '../../shared/components/DeleteWarnModal';
+import { deleteTeacherById } from '../../shared/firebase/actions/teachers';
 
 import { CreateTeacher } from './components/CreateTeacher';
 import { EditTeacher } from './components/EditTeacher';
@@ -67,9 +69,11 @@ const columns: MRT_ColumnDef<Record<string, any>>[] = [
 
 export const Teachers: React.FC = () => {
   const [isOpen, setOpen] = useState(false);
+  const [isDeleting, setDeleting] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState<TeacherCollectionType>();
   const [data, setData] = useState<TeacherCollectionType[]>([]);
   const router= useRouter();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleOpenDialog = (): void => {
     setOpen((state) => !state);
@@ -93,8 +97,20 @@ export const Teachers: React.FC = () => {
     setDeleteRecord(e)
   }
 
-  const onCloseDeteleModal = () => {
+  const onCloseDeteleModal = (): void => {
     setDeleteRecord(undefined);
+  }
+
+  const deleteTeacher = async (): Promise<void> => {
+    setDeleting(true);
+    try {
+      await deleteTeacherById(deleteRecord?.id as string);
+      setDeleteRecord(undefined);
+      enqueueSnackbar('Profesor borrado con exito', { variant: 'success' });
+    } catch (error) {
+      enqueueSnackbar('Something is wrong', { variant: 'error' });
+    }
+    setDeleting(false);
   }
 
   return (
@@ -117,7 +133,8 @@ export const Teachers: React.FC = () => {
       />
      <CreateTeacher open={isOpen} onClose={handleOpenDialog} />
      <DeleteWarnModal 
-        onConfirm={() => {}} 
+        isLoading={isDeleting}
+        onConfirm={deleteTeacher} 
         open={Boolean(deleteRecord)} 
         onClose={onCloseDeteleModal} 
       />

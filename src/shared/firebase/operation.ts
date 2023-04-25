@@ -12,7 +12,8 @@ import {
   DocumentData, 
   DocumentReference,
   getDocs,
-  QuerySnapshot
+  QuerySnapshot,
+  deleteDoc
 } from "firebase/firestore"; 
 import { database } from "./config";
 
@@ -27,12 +28,23 @@ export class Operation<T extends DocumentData>{
     this.collection = collection(database, name) as  CollectionReference<T>;
   }
 
+  async delete(id: string): Promise<void> {
+    const docRef = doc(database, this.name, id) as DocumentReference<T>;
+    try{
+      return deleteDoc(docRef);
+    }catch(error){
+      const meessage = `Operation error in delete ${this.name}`;
+      console.log(meessage, JSON.stringify(error, null, 2));
+      throw new Error(meessage);
+    }
+  }
+
   async update(id: string, data: UpdateData<T>): Promise<void>{
     const docRef = doc(database, this.name, id) as DocumentReference<T>;
     try{
       return updateDoc<T>(docRef, data);
     }catch(error){
-      const meessage = `Operation error in create ${this.name}`;
+      const meessage = `Operation error in update ${this.name}`;
       console.log(meessage, JSON.stringify(error, null, 2));
       throw new Error(meessage);
     }
