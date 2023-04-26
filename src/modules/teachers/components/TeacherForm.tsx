@@ -145,6 +145,7 @@ export const TeacherForm = forwardRef<ForwarRefType,TeacherFormProps>(({
             label="Email" 
             variant="filled"
             margin="normal" 
+            type="email"
             onChange={onChange}
             value={value}
             error={Boolean(errors?.lastname?.ref)}
