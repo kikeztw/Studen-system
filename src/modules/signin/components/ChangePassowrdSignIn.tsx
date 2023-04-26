@@ -47,11 +47,11 @@ export const ChangePassowrdSignIn: React.FC<ChangePassowrdSignInProps> = ({
             message: 'Contraseña Requerida',
             
           },
-          pattern: {
-            value: /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{6,16}$/
-            ,
-            message: 'La contraseña debe tener entre 6 y 16 caracteres, al menos un caracter nunmerico y uno alfanumerico. Deben coincidir'
-          }
+          // pattern: {
+          //   value: /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{6,16}$/
+          //   ,
+          //   message: 'La contraseña debe tener entre 6 y 16 caracteres, al menos un caracter nunmerico y uno alfanumerico. Deben coincidir'
+          // }
         }}
         render={({ field: { onChange, value } }) => (
           <TextField

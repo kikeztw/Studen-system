@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/router';
 import { useForm, Controller } from 'react-hook-form';
+import { useSnackbar } from 'notistack';
 
 import { signInUser } from '../../shared/firebase/actions/auth';
 
@@ -34,14 +35,18 @@ export const Login: React.FC = () => {
   const { control, formState: { errors }, handleSubmit }= useForm<FormStateType>();
   const router = useRouter();
   const [isLoading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const onClickRedirectToLogin = handleSubmit(async (value): Promise<void> => {
     setLoading(true);
     try {
       await signInUser(value.email, value.password);
       router.push('/teachers');
-    } catch (error) {
+    } catch (error: any) {
+      console.log(JSON.stringify(error))
       setLoading(false);
+      enqueueSnackbar(error.message, { variant: 'error' });
+      return;
     }
   })
 

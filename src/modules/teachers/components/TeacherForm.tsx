@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useImperativeHandle, forwardRef } from 'react';
 import TextField from '@mui/material/TextField';
 import { useForm, Controller } from 'react-hook-form';
 
 import { CustomDialog } from '../../../shared/components/CustomDialog';
 import { TeacherCollectionType } from '../../../shared/types/collections';
 
+export type ForwarRefType = {
+  resetForm: () => void;
+}
 
 type TeacherFormProps = {
   data?: TeacherCollectionType;
@@ -15,15 +18,16 @@ type TeacherFormProps = {
   onSubmit?: (value: TeacherCollectionType) => void;
 }
 
-export const TeacherForm: React.FC<TeacherFormProps> = ({
+export const TeacherForm = forwardRef<ForwarRefType,TeacherFormProps>(({
   data,
   open,
   modalTitle,
   onSubmit,
   isLoading,
   onCloseModal,
-}) => {
+}, ref) => {
   const {  control, formState: { errors }, handleSubmit, reset, setValue } = useForm<TeacherCollectionType>();
+
 
   const resetForm = (): void => {
     reset({
@@ -33,6 +37,10 @@ export const TeacherForm: React.FC<TeacherFormProps> = ({
       phone: '',
     })
   }
+
+  useImperativeHandle(ref, () => ({
+    resetForm
+  }));
 
   useEffect(() => {
     if(data && open){
@@ -174,4 +182,5 @@ export const TeacherForm: React.FC<TeacherFormProps> = ({
       />
     </CustomDialog>
   );
-}
+});
+

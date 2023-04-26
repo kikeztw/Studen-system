@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSnackbar } from 'notistack';
 
 import { createTeacher } from '../../../shared/firebase/actions/teachers';
-import { TeacherForm } from './TeacherForm';
+import { TeacherForm, ForwarRefType } from './TeacherForm';
 import { TeacherCollectionType } from '../../../shared/types/collections';
 
 
@@ -15,6 +15,7 @@ export const CreateTeacher: React.FC<CreateTeacherProps> = ({
   open,
   onClose,
 }) => {
+  const ref = useRef<ForwarRefType>(null);
   const [isLoading, setLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -28,11 +29,13 @@ export const CreateTeacher: React.FC<CreateTeacherProps> = ({
     }
     enqueueSnackbar('Profesor registrado con exito', { variant: 'success' });
     setLoading(false);
+    ref?.current?.resetForm();
     onClose();
   }
 
   return (
     <TeacherForm
+      ref={ref}
       open={open}
       isLoading={isLoading}
       onSubmit={onSubmit}
