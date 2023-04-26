@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, forwardRef } from 'react';
+import React, { useEffect, useImperativeHandle, forwardRef, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import { useForm, Controller } from 'react-hook-form';
 
@@ -18,6 +18,14 @@ type TeacherFormProps = {
   onSubmit?: (value: TeacherCollectionType) => void;
 }
 
+const DEFAULT_VALUE: TeacherCollectionType = {
+  firstname: '',
+  lastname: '',
+  ci: '',
+  email: '',
+  phone: '',
+}
+
 export const TeacherForm = forwardRef<ForwarRefType,TeacherFormProps>(({
   data,
   open,
@@ -26,7 +34,10 @@ export const TeacherForm = forwardRef<ForwarRefType,TeacherFormProps>(({
   isLoading,
   onCloseModal,
 }, ref) => {
-  const {  control, formState: { errors }, handleSubmit, reset, setValue } = useForm<TeacherCollectionType>();
+  const {  control, formState: { errors }, handleSubmit, reset, setValue } = useForm<TeacherCollectionType>({
+    defaultValues: DEFAULT_VALUE,
+  });
+  const timeOut = useRef<ReturnType<typeof setTimeout>>();
 
 
   const resetForm = (): void => {
@@ -44,11 +55,17 @@ export const TeacherForm = forwardRef<ForwarRefType,TeacherFormProps>(({
 
   useEffect(() => {
     if(data && open){
-      setValue('firstname', data.firstname);
-      setValue('lastname', data.lastname);
-      setValue('ci', data.ci);
-      setValue('email', data.email);
-      setValue('phone', data.phone);
+      timeOut.current = setTimeout(() => {
+        setValue('firstname', data.firstname);
+        setValue('lastname', data.lastname);
+        setValue('ci', data.ci);
+        setValue('email', data.email);
+        setValue('phone', data.phone);
+      }, 1000);
+    }
+
+    return () => {
+      clearTimeout(timeOut.current);
     }
 
   }, [open, data]);
@@ -128,7 +145,6 @@ export const TeacherForm = forwardRef<ForwarRefType,TeacherFormProps>(({
             label="Email" 
             variant="filled"
             margin="normal" 
-            type="email"
             onChange={onChange}
             value={value}
             error={Boolean(errors?.lastname?.ref)}

@@ -17,7 +17,6 @@ export const EditTeacher: React.FC = () => {
     if(typeof router.query?.edit === 'string'){
       setLoading(true);
       const response = await getTeacherById(router.query?.edit);
-      console.log('response', response);
       if(response){
         setData(response);
       }
