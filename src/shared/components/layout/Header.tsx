@@ -6,8 +6,16 @@ import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+
+import { getCurrentUser } from '../../firebase/actions/user';
 
 const drawerWidth = 240;
+
+const AvatarContainer = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+})
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -45,6 +53,8 @@ export const Header: React.FC<HeaderPropss> = ({
   isOpen,
 }) => {
 
+  const user = React.useMemo(() => getCurrentUser(), []);
+
   return (
     <AppBar elevation={0} position="fixed" open={isOpen}>
       <Toolbar>
@@ -61,7 +71,22 @@ export const Header: React.FC<HeaderPropss> = ({
           >
             <MenuIcon />
           </IconButton>
-          <Avatar src="https://joesch.moe/api/v1/random?key=2" alt="vatar_header"/>
+          <AvatarContainer>
+            {user ? (
+              <Typography fontWeight="bold"  sx={{ marginRight: 3, }} variant="body2" color="InfoText">
+                {user.email}
+              </Typography>
+            ): null}
+            <Avatar 
+              sx={(theme) => ({ 
+                border:  `2px solid ${theme.palette.primary.main}`,
+                width: 50,
+                height: 50,
+              })} 
+              src="https://joesch.moe/api/v1/random?key=2" 
+              alt="vatar_header"
+            />
+          </AvatarContainer>
         </Stack>
       </Toolbar>
     </AppBar>
