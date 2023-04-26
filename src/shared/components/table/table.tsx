@@ -33,9 +33,8 @@ export const Table = <T extends Record<string, any>,>({ button, data, onClickDel
         }}
         columns={columns}
         data={data}
-        editingMode="modal" //default
         enableColumnOrdering
-        enableEditing
+        enableEditing={Boolean(onClickDelete || onClickEdit)}
         muiTableProps={{ style: { paddingTop: 15 }}}
         renderRowActions={({ row, table }) => (
           <Box sx={{ display: 'flex', gap: '1rem' }}>

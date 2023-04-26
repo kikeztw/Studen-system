@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { type MRT_ColumnDef } from 'material-react-table';
 
 import { Table } from '../../shared/components/table/table';
+import { getAllCoordinators } from '../../shared/firebase/actions/coordinators';
+import { CoordinatorCollectionType } from '../../shared/types/collections';
 
 import { CreateCoordinador } from './components/CreateCoordinador';
 
@@ -53,17 +55,27 @@ const columns: MRT_ColumnDef<Record<string, any>>[] = [
 
 export const CoordinatorsView: React.FC = () => {
   const [isOpen, setOpen] = useState(false);
+  const [coordinators, setCoordinatos] = useState<CoordinatorCollectionType[]>([]);
+
+  const getCoordinators = async (): Promise<void> => {
+    const response = await getAllCoordinators();
+    setCoordinatos(response);
+  }
 
   const handleOpenDialog = (): void => {
     setOpen((state) => !state);
   }
+
+  useEffect(() => {
+    getCoordinators();
+  }, []);
 
   return (
     <>
       <Table 
         title="Profesores" 
         columns={columns} 
-        data={[]}  
+        data={coordinators}  
         button={() => (
           <Button 
             onClick={handleOpenDialog}
