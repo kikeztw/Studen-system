@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/lab/LoadingButton';
 import { useForm, Controller } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
+import { UserCredential } from 'firebase/auth';
 
+import { signInWithEmail } from '../../../shared/firebase/actions/auth';
 import { changePassword } from '../../../shared/firebase/actions/auth';
 
 type FormType = {
@@ -18,12 +21,27 @@ type ChangePassowrdSignInProps = {
 export const ChangePassowrdSignIn: React.FC<ChangePassowrdSignInProps> = ({
   onFinish,
 }) => {
+  const { query } = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const { control, formState: { errors }, handleSubmit, watch } = useForm<FormType>();
   const [isLoading, setLoading] = useState(false);
 
   const onSubmit = handleSubmit(async (value) => {
     setLoading(true);
+  
+    if(typeof query.email !== 'string'){
+      enqueueSnackbar('Something is wrong', { variant: 'error' });
+      return;
+    }
+
+    try {
+      await signInWithEmail(query.email)
+    } catch (error) {
+      console.log('ERROR SGNIN', JSON.stringify(error));
+      enqueueSnackbar('Something is wrong', { variant: 'error' });
+      return;
+    }
+
     try {
       await changePassword(value.password);
     } catch (error) {
