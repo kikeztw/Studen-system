@@ -17,5 +17,22 @@ export const actionCodeSettings = {
 
 export enum COLLECTION_NAME {
   teachers = "TEACHERS",
-  coordinators = 'profile'
+  coordinators = 'profile',
+  course = 'COURSE',
+}
+
+export enum GRADE {
+  GRADE_01 = 'Primer Año',
+  GRADE_02 = 'Segundo Año',
+  GRADE_03 = 'Segundo Año',
+  GRADE_04 = 'Segundo Año',
+  GRADE_05 = 'Segundo Año',
+}
+
+export enum COURSE_NAMES {
+  MATEMATICAS = 'Matematica',
+  FISICA = 'Fisica',
+  QUIMICA = 'Quimica',
+  INGLES = 'Ingles',
+  CASTELLANO = 'Castellano',
 }

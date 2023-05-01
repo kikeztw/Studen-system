@@ -16,3 +16,9 @@ export type CoordinatorCollectionType = {
   phone: string;
   email: string;
 };
+
+export type CourseCollectionType = {
+  name: string;
+  course: string;
+  status?: 'Active' | 'Inactive',
+}

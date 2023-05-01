@@ -64,6 +64,8 @@ export const CustomDialog: React.FC<React.PropsWithChildren<DialogPropss>> = ({
   title,
 }) => (
   <BootstrapDialog
+    fullWidth
+    maxWidth="sm"
     onClose={onClose}
     open={open}
   >
