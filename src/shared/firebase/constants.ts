@@ -24,9 +24,9 @@ export enum COLLECTION_NAME {
 export enum GRADE {
   GRADE_01 = 'Primer Año',
   GRADE_02 = 'Segundo Año',
-  GRADE_03 = 'Segundo Año',
-  GRADE_04 = 'Segundo Año',
-  GRADE_05 = 'Segundo Año',
+  GRADE_03 = 'Tercero Año',
+  GRADE_04 = 'Cuarto Año',
+  GRADE_05 = 'Quinto Año',
 }
 
 export enum COURSE_NAMES {

@@ -1,5 +1,10 @@
-export type TeacherCollectionType = {
+export type CollectionBasicType = {
   id?: string;
+  createAt?: string;
+  updateAt?: string;
+}
+
+export type TeacherCollectionType = CollectionBasicType & {
   firstname: string;
   lastname: string;
   ci: string;
@@ -8,8 +13,7 @@ export type TeacherCollectionType = {
   status?: 'Activo' | 'Inactivo';
 };
 
-export type CoordinatorCollectionType = {
-  id?: string;
+export type CoordinatorCollectionType = CollectionBasicType& {
   firstname: string;
   lastname: string;
   ci: string;
@@ -17,7 +21,7 @@ export type CoordinatorCollectionType = {
   email: string;
 };
 
-export type CourseCollectionType = {
+export type CourseCollectionType = CollectionBasicType & {
   name: string;
   course: string;
   status?: 'Active' | 'Inactive',
