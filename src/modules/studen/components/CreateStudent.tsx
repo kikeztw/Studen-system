@@ -40,7 +40,7 @@ export const CreateStudent: React.FC<CreateStudentProps> = ({
       isLoading={isLoading}
       onSubmit={onSubmit}
       onCloseModal={onClose}
-      modalTitle="Agregar profesor"
+      modalTitle="Agregar Estudiante"
     />
   );
 }

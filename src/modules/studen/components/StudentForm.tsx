@@ -63,6 +63,7 @@ export const StudentForm = forwardRef<ForwarRefType,TeacherFormProps>(({
         setValue('lastname', data.lastname);
         setValue('ci', data.ci);
         setValue('email', data.email);
+        setValue('course', data.course);
       }, 1000);
     }
 

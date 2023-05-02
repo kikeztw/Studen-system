@@ -11,7 +11,7 @@ import { DeleteWarnModal } from '../../shared/components/DeleteWarnModal';
 import { Students } from '../../shared/firebase/actions/student';
 
 import { CreateStudent } from './components/CreateStudent';
-import { EditTeacher } from './components/EditTeacher';
+import { EditStuden } from './components/EditStuden';
 
 const columns: MRT_ColumnDef<Record<string, any>>[] = [
   { 
@@ -137,7 +137,7 @@ export const Student: React.FC = () => {
         open={Boolean(deleteRecord)} 
         onClose={onCloseDeteleModal} 
       />
-     <EditTeacher />
+     <EditStuden />
     </>
   );
 }

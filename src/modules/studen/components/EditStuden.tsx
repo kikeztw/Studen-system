@@ -3,11 +3,11 @@ import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 
 import { StudentCollectionTye } from '../../../shared/types/collections';
-import { getTeacherById, updateTeacherById } from '../../../shared/firebase/actions/teachers';
+import { getStudentById, updateStudentById } from '../../../shared/firebase/actions/student';
 import { StudentForm } from './StudentForm';
 
 
-export const EditTeacher: React.FC = () => {
+export const EditStuden: React.FC = () => {
   const router = useRouter();
   const [isLoading, setLoading] = useState(true);
   const [initialData, setData] = useState<StudentCollectionTye>();
@@ -15,11 +15,11 @@ export const EditTeacher: React.FC = () => {
 
   const getIntialData = async (): Promise<void> => {
     if(typeof router.query?.edit === 'string'){
-      // setLoading(true);
-      // const response = await getTeacherById(router.query?.edit);
-      // if(response){
-      //   setData(response);
-      // }
+      setLoading(true);
+      const response = await getStudentById(router.query?.edit);
+      if(response){
+        setData(response);
+      }
       setLoading(false);
     }
   }
@@ -35,13 +35,13 @@ export const EditTeacher: React.FC = () => {
   const onSubmit = async (value:  StudentCollectionTye) => {
     setLoading(true);
     try {
-      // await updateTeacherById(router.query?.edit as string, value);
+      await updateStudentById(router.query?.edit as string, value);
     } catch (error) {
       enqueueSnackbar('Something is wrong', { variant: 'error' });
       setLoading(false);
       return;
     }
-    enqueueSnackbar('Profesor registrado con exito', { variant: 'success' });
+    enqueueSnackbar('Estudiante registrado con exito', { variant: 'success' });
     setLoading(false);
     onClose();
   }
@@ -52,7 +52,7 @@ export const EditTeacher: React.FC = () => {
       isLoading={isLoading}
       onSubmit={onSubmit}
       onCloseModal={onClose}
-      modalTitle="Editar profesor"
+      modalTitle="Editar Estudiante"
       data={initialData}
     />
   );
