@@ -19,6 +19,7 @@ export enum COLLECTION_NAME {
   teachers = "TEACHERS",
   coordinators = 'profile',
   course = 'COURSE',
+  student = 'STUDENT',
 }
 
 export enum GRADE {

@@ -80,7 +80,7 @@ export const CourseForm = forwardRef<ForwarRefType,TeacherFormProps>(({
           <TextField
             select
             fullWidth
-            label="Grado"
+            label="Año"
             variant="filled"
             margin="normal"
             onChange={onChange}
@@ -109,7 +109,7 @@ export const CourseForm = forwardRef<ForwarRefType,TeacherFormProps>(({
         <TextField
           select
           fullWidth
-          label="Año"
+          label="Materia"
           variant="filled"
           margin="normal"
           onChange={onChange}

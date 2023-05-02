@@ -26,3 +26,12 @@ export type CourseCollectionType = CollectionBasicType & {
   course: string;
   status?: 'Active' | 'Inactive',
 }
+
+export type StudentCollectionTye = CollectionBasicType & {
+  firstname: string;
+  lastname: string;
+  ci: string;
+  email: string;
+  status?: 'Active' | 'Inactive',
+  course: string;
+}
