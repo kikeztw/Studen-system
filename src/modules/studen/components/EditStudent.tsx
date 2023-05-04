@@ -7,7 +7,7 @@ import { getStudentById, updateStudentById } from '../../../shared/firebase/acti
 import { StudentForm } from './StudentForm';
 
 
-export const EditStuden: React.FC = () => {
+export const EditStudent: React.FC = () => {
   const router = useRouter();
   const [isLoading, setLoading] = useState(true);
   const [initialData, setData] = useState<StudentCollectionTye>();

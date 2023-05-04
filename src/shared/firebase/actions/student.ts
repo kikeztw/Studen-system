@@ -16,3 +16,7 @@ export const updateStudentById = async (id: string, data: StudentCollectionTye):
 export const getStudentById = async (id: string): Promise<StudentCollectionTye | null> => {
   return Students.get(id);
 };
+
+export const deleteStudentById = async(id: string): Promise<void> => {
+  return Students.delete(id);
+}

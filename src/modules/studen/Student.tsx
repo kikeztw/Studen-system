@@ -6,12 +6,11 @@ import { useSnackbar } from 'notistack';
 
 import { Table } from '../../shared/components/table/table';
 import { StudentCollectionTye } from '../../shared/types/collections';
-import { Teachers as TeacherOperation } from '../../shared/firebase/actions/teachers';
+import { deleteStudentById, Students } from '../../shared/firebase/actions/student';
 import { DeleteWarnModal } from '../../shared/components/DeleteWarnModal';
-import { Students } from '../../shared/firebase/actions/student';
 
 import { CreateStudent } from './components/CreateStudent';
-import { EditStuden } from './components/EditStuden';
+import { EditStudent } from './components/EditStudent';
 
 const columns: MRT_ColumnDef<Record<string, any>>[] = [
   { 
@@ -88,7 +87,7 @@ export const Student: React.FC = () => {
     });
 
     return() => {
-      TeacherOperation.remove_subscription();
+      Students.remove_subscription();
     }
   }, []);
 
@@ -100,10 +99,10 @@ export const Student: React.FC = () => {
     setDeleteRecord(undefined);
   }
 
-  const deleteTeacher = async (): Promise<void> => {
+  const deleteStudent = async (): Promise<void> => {
     setDeleting(true);
     try {
-      // await deleteTeacherById(deleteRecord?.id as string);
+      await deleteStudentById(deleteRecord?.id as string);
       setDeleteRecord(undefined);
       enqueueSnackbar('Profesor borrado con exito', { variant: 'success' });
     } catch (error) {
@@ -133,11 +132,11 @@ export const Student: React.FC = () => {
      <CreateStudent open={isOpen} onClose={handleOpenDialog} />
      <DeleteWarnModal 
         isLoading={isDeleting}
-        onConfirm={deleteTeacher} 
+        onConfirm={deleteStudent} 
         open={Boolean(deleteRecord)} 
         onClose={onCloseDeteleModal} 
       />
-     <EditStuden />
+     <EditStudent />
     </>
   );
 }
