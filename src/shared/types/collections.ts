@@ -35,3 +35,9 @@ export type StudentCollectionTye = CollectionBasicType & {
   status?: 'Active' | 'Inactive',
   course: string;
 }
+
+export type GradesCollectionTye = CollectionBasicType & {
+  course: CourseCollectionType;
+  student: StudentCollectionTye;
+  value: number;
+}

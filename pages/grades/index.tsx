@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { NextPageWithLayout } from '../src/shared/types/page';
+import { NextPageWithLayout } from '../../src/shared/types/page';
 import { GridColDef } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-import { getLayout } from '../src/shared/utils/get-layout';
-import { Table } from '../src/shared/components/table/table';
-import { CustomDialog } from '../src/shared/components/CustomDialog';
+import { getLayout } from '../../src/shared/utils/get-layout';
+import { Table } from '../../src/shared/components/table/table';
+import { CustomDialog } from '../../src/shared/components/CustomDialog';
 
 const columns: GridColDef[] = [
   { field: 'firstName', headerName: 'Nombre' },
