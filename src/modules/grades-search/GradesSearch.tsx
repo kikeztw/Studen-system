@@ -45,52 +45,49 @@ export const GradesSearch: React.FC = () => {
 
     return (
         <Container>
-            <FormContainer>
-                <Box display="flex" flexDirection="column" alignItems="center" marginBottom={4}>
-                    <Image style={{ marginRight: 8 }} src="/MIT_logo_bg.png" alt="sidebar_logo" width={150} height={150} />
-                    <Typography variant="h6" color="GrayText">Students System</Typography>
-                </Box>
-
-
-                <Stack width="100%" spacing={5}>
-                    <Alert severity="warning">
-                        <AlertTitle>¡Atención!</AlertTitle>
-                        {MESSAGE}
-                    </Alert>
-                    <Controller
-                        control={control}
-                        name="email"
-                        rules={{
-                            required: {
-                                value: true,
-                                message: 'Email Requerido'
-                            },
-                            pattern: {
-                                value: EMAIL_REGEX,
-                                message: 'Email no valido',
-                            }
-                        }}
-                        render={({ field: { onChange, value } }) => (
-                            <TextField
-                                type="email"
-                                fullWidth
-                                label="Email"
-                                variant="filled"
-                                margin="normal"
-                                onChange={onChange}
-                                value={value}
-                                error={Boolean(errors?.email?.ref)}
-                                helperText={errors?.email?.message}
-                            />
-                        )}
-                    />
-                </Stack>
-
-                <Box marginTop={2}>
-                    <Button loading={isLoading} onClick={onClickRedirectToLogin} size="large" fullWidth variant="contained">Continuar</Button>
-                </Box>
-            </FormContainer>
-        </Container>
+				<FormContainer>
+					<Box display="flex" flexDirection="column" alignItems="center" marginBottom={4}>
+						<Image style={{ marginRight: 8 }} src="/MIT_logo_bg.png" alt="sidebar_logo" width={150} height={150} />
+						<Typography variant="h6" color="GrayText">Students System</Typography>
+					</Box>
+						<Stack width="100%" spacing={5}>
+							<Alert severity="warning">
+								<AlertTitle>¡Atención!</AlertTitle>
+								{MESSAGE}
+							</Alert>
+								<Controller
+									control={control}
+									name="email"
+									rules={{
+										required: {
+											value: true,
+											message: 'Email Requerido'
+										},
+										pattern: {
+											value: EMAIL_REGEX,
+											message: 'Email no valido',
+										}
+									}}
+									render={({ field: { onChange, value } }) => (
+										<TextField
+											type="email"
+											fullWidth
+											label="Email"
+											variant="filled"
+											margin="normal"
+											onChange={onChange}
+											value={value}
+											error={Boolean(errors?.email?.ref)}
+											helperText={errors?.email?.message}
+										/>
+									)}
+								/>
+						</Stack>
+						<Box marginTop={2}>
+								<Button loading={isLoading} onClick={onClickRedirectToLogin} size="large" fullWidth variant="contained">Continuar</Button>
+						</Box>
+				</FormContainer>
+      </Container>
     );
 }
 
