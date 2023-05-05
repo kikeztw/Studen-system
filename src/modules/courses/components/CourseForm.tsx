@@ -21,7 +21,7 @@ type TeacherFormProps = {
 }
 
 const DEFAULT_VALUE: CourseCollectionType = {
-  name: '',
+  grade: '',
   course: '',
 }
 
@@ -41,10 +41,7 @@ export const CourseForm = forwardRef<ForwarRefType,TeacherFormProps>(({
   });
 
   const resetForm = (): void => {
-    reset({
-      name: '',
-      course: '',
-    })
+    reset(DEFAULT_VALUE)
   }
 
   useImperativeHandle(ref, () => ({
@@ -69,7 +66,7 @@ export const CourseForm = forwardRef<ForwarRefType,TeacherFormProps>(({
       title={modalTitle}>
       <Controller
         control={control}
-        name="name"
+        name="grade"
         rules={{
           required: {
             value: true,
@@ -102,7 +99,7 @@ export const CourseForm = forwardRef<ForwarRefType,TeacherFormProps>(({
         rules={{
           required: {
             value: true,
-            message: 'Apellido Requerido'
+            message: 'Materia Requerido'
           },
         }}
         render={({field: { onChange, value } }) => (
@@ -123,8 +120,8 @@ export const CourseForm = forwardRef<ForwarRefType,TeacherFormProps>(({
             </MenuItem>
           ))}
         </TextField>
-      )}
-    />
+        )}
+      />
     </CustomDialog>
   );
 });

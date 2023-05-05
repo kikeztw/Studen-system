@@ -22,9 +22,14 @@ export type CoordinatorCollectionType = CollectionBasicType& {
 };
 
 export type CourseCollectionType = CollectionBasicType & {
-  name: string;
+  grade: string;
   course: string;
   status?: 'Active' | 'Inactive',
+}
+
+export type GradesCollectionTye = CollectionBasicType & {
+  course: string;
+  value: number;
 }
 
 export type StudentCollectionTye = CollectionBasicType & {
@@ -32,12 +37,8 @@ export type StudentCollectionTye = CollectionBasicType & {
   lastname: string;
   ci: string;
   email: string;
-  status?: 'Active' | 'Inactive',
+  status?: 'Active' | 'Inactive';
   course: string;
+  grades: GradesCollectionTye[];
 }
 
-export type GradesCollectionTye = CollectionBasicType & {
-  course: CourseCollectionType;
-  student: StudentCollectionTye;
-  value: number;
-}

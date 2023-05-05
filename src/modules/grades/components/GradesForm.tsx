@@ -1,29 +1,30 @@
 import React, { useEffect, useImperativeHandle, forwardRef, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import { useForm, Controller } from 'react-hook-form';
+import MenuItem from '@mui/material/MenuItem';
 
 import { CustomDialog } from '../../../shared/components/CustomDialog';
-import { TeacherCollectionType } from '../../../shared/types/collections';
+import { GradesCollectionTye } from '../../../shared/types/collections';
+import { COURSE_NAMES } from '../../../shared/firebase/constants';
+
+const COURSE_LIST = Object.values(COURSE_NAMES).map((item) => ({ value: item, label: item }));
 
 export type ForwarRefType = {
   resetForm: () => void;
 }
 
 type GradesFormProps = {
-  data?: TeacherCollectionType;
+  data?: GradesCollectionTye;
   open: boolean;
   modalTitle: string;
   onCloseModal: () => void;
   isLoading: boolean;
-  onSubmit?: (value: TeacherCollectionType) => void;
+  onSubmit?: (value: GradesCollectionTye) => void;
 }
 
-const DEFAULT_VALUE: TeacherCollectionType = {
-  firstname: '',
-  lastname: '',
-  ci: '',
-  email: '',
-  phone: '',
+const DEFAULT_VALUE: GradesCollectionTye = {
+  value: 0,
+  course: '',
 }
 
 export const GradesForm = forwardRef<ForwarRefType,GradesFormProps>(({
@@ -34,19 +35,14 @@ export const GradesForm = forwardRef<ForwarRefType,GradesFormProps>(({
   isLoading,
   onCloseModal,
 }, ref) => {
-  const {  control, formState: { errors }, handleSubmit, reset, setValue } = useForm<TeacherCollectionType>({
+  const {  control, formState: { errors }, handleSubmit, reset, setValue } = useForm<GradesCollectionTye>({
     defaultValues: DEFAULT_VALUE,
   });
   const timeOut = useRef<ReturnType<typeof setTimeout>>();
 
 
   const resetForm = (): void => {
-    reset({
-      firstname: '',
-      lastname: '',
-      ci: '',
-      phone: '',
-    })
+    reset(DEFAULT_VALUE)
   }
 
   useImperativeHandle(ref, () => ({
@@ -56,11 +52,11 @@ export const GradesForm = forwardRef<ForwarRefType,GradesFormProps>(({
   useEffect(() => {
     if(data && open){
       timeOut.current = setTimeout(() => {
-        setValue('firstname', data.firstname);
-        setValue('lastname', data.lastname);
-        setValue('ci', data.ci);
-        setValue('email', data.email);
-        setValue('phone', data.phone);
+        // setValue('firstname', data.firstname);
+        // setValue('lastname', data.lastname);
+        // setValue('ci', data.ci);
+        // setValue('email', data.email);
+        // setValue('phone', data.phone);
       }, 1000);
     }
 
@@ -88,29 +84,7 @@ export const GradesForm = forwardRef<ForwarRefType,GradesFormProps>(({
       title={modalTitle}>
       <Controller
         control={control}
-        name="firstname"
-        rules={{
-          required: {
-            value: true,
-            message: 'Nombre Requerido'
-          },
-        }}
-        render={({field: { onChange, value } }) => (
-          <TextField 
-            fullWidth 
-            label="Nombre" 
-            variant="filled"
-            margin="normal" 
-            onChange={onChange}
-            value={value}
-            error={Boolean(errors?.firstname?.ref)}
-            helperText={errors?.firstname?.message}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name="lastname"
+        name="course"
         rules={{
           required: {
             value: true,
@@ -118,82 +92,45 @@ export const GradesForm = forwardRef<ForwarRefType,GradesFormProps>(({
           },
         }}
         render={({field: { onChange, value } }) => (
-          <TextField 
-            fullWidth 
-            label="Apellido" 
-            variant="filled"
-            margin="normal" 
-            onChange={onChange}
-            value={value}
-            error={Boolean(errors?.lastname?.ref)}
-            helperText={errors?.lastname?.message}
-          />
+        <TextField
+          select
+          fullWidth
+          label="Materia"
+          variant="filled"
+          margin="normal"
+          onChange={onChange}
+          value={value}
+          error={Boolean(errors?.course?.ref)}
+          helperText={errors?.course?.message}
+        >
+          {COURSE_LIST.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
         )}
       />
       <Controller
         control={control}
-        name="email"
+        name="value"
         rules={{
           required: {
             value: true,
-            message: 'Email Requerido'
+            message: 'Nota Requerido'
           },
         }}
         render={({field: { onChange, value } }) => (
           <TextField 
             fullWidth 
-            label="Email" 
+            label="Nota" 
             variant="filled"
             margin="normal" 
             type="email"
             onChange={onChange}
             value={value}
-            error={Boolean(errors?.lastname?.ref)}
-            helperText={errors?.lastname?.message}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name="ci"
-        rules={{
-          required: {
-            value: true,
-            message: 'Cedula Requerida'
-          },
-        }}
-        render={({field: { onChange, value } }) => (
-          <TextField 
-            fullWidth 
-            label="Cedula" 
-            variant="filled"
-            margin="normal" 
-            onChange={onChange}
-            value={value}
-            error={Boolean(errors?.ci?.ref)}
-            helperText={errors?.ci?.message}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name="phone"
-        rules={{
-          required: {
-            value: true,
-            message: 'Telefono Requerido'
-          },
-        }}
-        render={({field: { onChange, value } }) => (
-          <TextField 
-            fullWidth 
-            label="Telefono" 
-            variant="filled"
-            margin="normal" 
-            onChange={onChange}
-            value={value}
-            error={Boolean(errors?.phone?.ref)}
-            helperText={errors?.phone?.message}
+            error={Boolean(errors?.value?.ref)}
+            helperText={errors?.value?.message}
           />
         )}
       />

@@ -2,8 +2,9 @@ import React, { useState, useRef } from 'react';
 import { useSnackbar } from 'notistack';
 
 import { createCourse } from '../../../shared/firebase/actions/course';
-import { CourseForm, ForwarRefType } from './CourseForm';
 import { CourseCollectionType } from '../../../shared/types/collections';
+import { CourseForm, ForwarRefType } from './CourseForm';
+
 
 
 type CreateCourseProps = {

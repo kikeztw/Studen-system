@@ -1,4 +1,7 @@
 import { 
+  WhereFilterOp,
+  FieldPath,
+  where,
   doc,
   UpdateData,
   getDoc,
@@ -13,7 +16,7 @@ import {
   DocumentReference,
   getDocs,
   QuerySnapshot,
-  deleteDoc
+  deleteDoc,
 } from "firebase/firestore"; 
 import { database } from "./config";
 
@@ -73,9 +76,14 @@ export class Operation<T extends DocumentData>{
     return null;
   }
 
-  subscription(cb: (value: QuerySnapshot<T>) => void): void {
+  async getByFilter(fieldPath: string | FieldPath, opStr: WhereFilterOp, value: unknown): Promise<QuerySnapshot<T>> {
+    const _query = query<T>(this.collection, where(fieldPath, opStr, value));
+    return getDocs<T>(_query);
+  }
+
+  subscription(cb: (value: QuerySnapshot<T>) => void, filter?: { fieldPath: string | FieldPath, opStr: WhereFilterOp, value: unknown  }): void {
     this.unsubscribe?.();
-    const _query = query(this.collection);
+    let _query = filter ? query(this.collection, where(filter.fieldPath, filter.opStr, filter.value)) : query(this.collection);
     this.unsubscribe = onSnapshot(_query, cb);
   }
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import Button from '@mui/material/Button';
 import { type MRT_ColumnDef } from 'material-react-table';
 import { useRouter } from 'next/router';
@@ -37,6 +38,14 @@ const columns: MRT_ColumnDef<Record<string, any>>[] = [
     enableEditing: false, //disable editing on this column
     enableSorting: false,
     size: 150,
+    Cell: (props) => {
+      return(
+        <Link 
+          href={`/student/grades?ci=${props.cell.getValue()}`}>
+        {`${props.cell.getValue()}`}
+        </Link>
+      )
+    },
   },
   { 
     accessorKey: 'email',
