@@ -1,6 +1,7 @@
 import { 
   signOut,
   getAuth, 
+  signInAnonymously,
   UserCredential,
   updatePassword,
   signInWithEmailLink,
@@ -84,3 +85,13 @@ export const signOutUser = async (): Promise<void> => {
   const auth = getAuth(app);
   await signOut(auth);
 }
+
+export const signInAnony = async (): Promise<void> => {
+  const auth = getAuth(app);
+  try{
+    await signInAnonymously(auth);
+  }catch(error){
+    console.log('error anony', error);
+    throw error;
+  }
+};

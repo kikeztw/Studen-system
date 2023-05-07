@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { styled } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
@@ -10,8 +11,12 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/lab/LoadingButton';
 import Image from 'next/image';
+import { useSnackbar } from 'notistack';
 
-const MESSAGE = "Se enviara un correo de confirmación en la dirección proporcionada para completar el proceso de registro en nuestra aplicación. Verifica tu bandeja de entrada y spam en caso de no encontrarlo."
+import { signInAnony } from '../../shared/firebase/actions/auth';
+import { getStudentByCI } from '../../shared/firebase/actions/student';
+
+const MESSAGE = "Introduce la cedula del estudiante que deseas consultar."
 
 const Container = styled('div')(({ theme }) => ({
     width: '100%',
@@ -29,18 +34,29 @@ const FormContainer = styled('div')({
 });
 
 type FormStateType = {
-    email: string;
+  ci: string;
 }
 
 
 export const GradesSearch: React.FC = () => {
     const [isLoading, setLoading] = useState(false);
-    const { control, formState: { errors }, handleSubmit } = useForm<{ email: string }>();
-    const onSubmit = handleSubmit((value) => {
+    const { control, formState: { errors }, handleSubmit } = useForm<FormStateType>();
+		const router = useRouter();
+		const { enqueueSnackbar } = useSnackbar();
 
-    })
+		useEffect(() =>{
+			signInAnony();
+		},[]);
+
     const onClickRedirectToLogin = handleSubmit(async (value): Promise<void> => {
-
+			setLoading(true);
+			const response = await getStudentByCI(value.ci);
+			if(response?.ci){
+				router.push(`/grades/result?ci=${response?.ci}`);
+			}else{
+				setLoading(false);
+				enqueueSnackbar('Estudiante no encontrado', { variant: 'error' });
+			}
     })
 
     return (
@@ -57,28 +73,23 @@ export const GradesSearch: React.FC = () => {
 							</Alert>
 								<Controller
 									control={control}
-									name="email"
+									name="ci"
 									rules={{
 										required: {
 											value: true,
-											message: 'Email Requerido'
+											message: 'La cedula es Requerida'
 										},
-										pattern: {
-											value: EMAIL_REGEX,
-											message: 'Email no valido',
-										}
 									}}
 									render={({ field: { onChange, value } }) => (
 										<TextField
-											type="email"
 											fullWidth
-											label="Email"
+											label="Cedula"
 											variant="filled"
 											margin="normal"
 											onChange={onChange}
 											value={value}
-											error={Boolean(errors?.email?.ref)}
-											helperText={errors?.email?.message}
+											error={Boolean(errors?.ci?.ref)}
+											helperText={errors?.ci?.message}
 										/>
 									)}
 								/>

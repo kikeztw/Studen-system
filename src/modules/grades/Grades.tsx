@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { type MRT_ColumnDef } from 'material-react-table';
 import { useRouter } from 'next/router';
-import { useSnackbar } from 'notistack';
 
 import { Table } from '../../shared/components/table/table';
 import { GradesCollectionTye, StudentCollectionTye } from '../../shared/types/collections';
@@ -34,12 +33,17 @@ const columns: MRT_ColumnDef<Record<string, any>>[] = [
 ];
 
 
-export const Grades: React.FC = () => {
+type GradesProps = {
+  isDisabledRegister?: boolean;
+}
+
+export const Grades: React.FC<GradesProps> = ({
+  isDisabledRegister
+}) => {
   const [isOpen, setOpen] = useState(false);
   const [data, setData] = useState<StudentCollectionTye>();
   const [grades, setGrades] = useState<GradesCollectionTye[]>([]);
   const router = useRouter();
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleOpenDialog = (): void => {
     setOpen((state) => !state);
@@ -89,15 +93,18 @@ export const Grades: React.FC = () => {
         title="Nota del Estudiante" 
         columns={columns} 
         data={grades}  
-        button={() => (
-          <Button 
-            onClick={handleOpenDialog}
-            variant="contained">
-              Registrar Nota
-          </Button>
-        )} 
+        button={
+          !isDisabledRegister ? 
+            () => (
+            <Button 
+              onClick={handleOpenDialog}
+              variant="contained">
+                Registrar Nota
+            </Button>
+            ): undefined
+        } 
       />
-     <CreateGrades data={data} open={isOpen} onClose={handleOpenDialog} />
+     {!isDisabledRegister && <CreateGrades data={data} open={isOpen} onClose={handleOpenDialog} />}
     </>
   );
 }
