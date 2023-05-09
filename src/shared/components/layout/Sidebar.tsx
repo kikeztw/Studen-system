@@ -64,12 +64,7 @@ const MENU_LIST = [
   {
     icon: <PeopleIcon color="primary"/>,
     label: 'Estudiantes',
-    route: '/students'
-  },
-  {
-    icon: <NoteAltIcon color="primary" />,
-    label: 'Notas',
-    route: '/grades'
+    route: '/student'
   },
   {
     icon: <LibraryBooksIcon color="primary" />,
