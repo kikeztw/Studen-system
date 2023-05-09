@@ -10,9 +10,8 @@ import { CourseCollectionType } from '../../shared/types/collections';
 
 const columns: MRT_ColumnDef<Record<string, any>>[] = [
   { 
-
-    accessorKey: 'name',
-    header: 'Nombre',
+    accessorKey: 'grade',
+    header: 'Año',
     enableColumnOrdering: false,
     enableEditing: false, //disable editing on this column
     enableSorting: false,
@@ -21,15 +20,13 @@ const columns: MRT_ColumnDef<Record<string, any>>[] = [
   { 
 
     accessorKey: 'course',
-    header: 'Apellido',
+    header: 'Materia',
     enableColumnOrdering: false,
     enableEditing: false, //disable editing on this column
     enableSorting: false,
     size: 150,
   },
 ];
-
-
 
 
 export const Courses: React.FC = () => {
@@ -54,6 +51,8 @@ export const Courses: React.FC = () => {
   const handleOpenCreate = (): void => {
     setOpen((state) => !state);
   }
+
+  console.log(data)
   
   return (
     <>
