@@ -41,7 +41,7 @@ export const CreateCourse: React.FC<CreateCourseProps> = ({
       isLoading={isLoading}
       onSubmit={onSubmit}
       onCloseModal={onClose}
-      modalTitle="Agregar profesor"
+      modalTitle="Agregar Materia"
     />
   );
 }
