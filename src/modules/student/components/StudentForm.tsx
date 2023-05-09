@@ -28,6 +28,7 @@ const DEFAULT_VALUE: StudentCollectionTye = {
   ci: '',
   email: '',
   course: '',
+  grades: [],
 }
 
 export const StudentForm = forwardRef<ForwarRefType,TeacherFormProps>(({
